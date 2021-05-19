@@ -2,7 +2,7 @@ import { projectStorage } from '../firebase/config';
 import { useState } from 'react';
 
 const useStorage = (path) => {
-	const [ filePath, setFilePath ] = useState(null);
+	// const [ filePath, setFilePath ] = useState(null);
 	const [ url, setUrl ] = useState(null);
 	const [ errorS, setErrorS ] = useState(null);
 
@@ -19,7 +19,7 @@ const useStorage = (path) => {
 		}
 	};
 
-	return { url, filePath, errorS, uploadImage };
+	return { url, errorS, uploadImage };
 };
 
 export default useStorage;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { projectFirestore, timestamp } from '../firebase/config';
+import { projectFirestore } from '../firebase/config';
 
 const useDocument = (collection) => {
 	const [ isPending, setIsPending ] = useState(false);
