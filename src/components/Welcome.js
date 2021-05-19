@@ -1,10 +1,28 @@
 import React from 'react';
+import logo from '../assets/logo-grey-mobile-side.png';
+import { Grid, Typography } from '@material-ui/core';
+import './welcome.css';
+import Nav from './Nav';
 
 const Welcome = () => {
 	return (
-		<div>
-			<h1>Welcome</h1>
-		</div>
+		<Grid container xs={12} className="welcome">
+			<Grid item xs={12}>
+				<img src={logo} alt="logo" />
+			</Grid>
+			<Grid item xs={12}>
+				<Typography>Welcome, username</Typography>
+			</Grid>
+			<Grid item xs={12}>
+				<Typography>Private Cafés</Typography>
+				{/* slider */}
+			</Grid>
+			<Grid item xs={12}>
+				<Typography>Recent Cafés</Typography>
+				{/* slider */}
+			</Grid>
+			<Nav />
+		</Grid>
 	);
 };
 

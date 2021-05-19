@@ -1,3 +1,6 @@
+* {
+	box-sizing: border-box;
+}
 :root {
 	scroll-behavior: smooth;
 	/* Colors */
@@ -15,7 +18,7 @@
 	--text-font: 'Montserrat', sans-serif;
 	--font-size-text14: 14px;
 	--font-size-text12: 12px;
-	--font-size-title30: 30px;
+	--font-size-title: 2.3rem;
 	--font-size-text1: 16px;
 	--font-size-subtitle: 20px;
 	--font-size-small10: 10px;
@@ -23,10 +26,13 @@
 	--font-size-subtitle18: 18px;
 }
 
-button {
+a {
 	border-radius: 20px !important;
-	width: 245px;
-	height: 45px;
+	width: 60%;
+	height: 40px;
 	font-size: var(--font-size-text1);
 	font-weight: 600;
+	text-transform: capitalize !important;
+	background-color: var(--color-blue) !important;
+	color: var(--color-grey) !important;
 }

@@ -1,0 +1,14 @@
+.Nav {
+	background-color: var(--color-blue);
+	height: 74px;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+}
+.st0 {
+	fill: #c4c4c4;
+}
+
+.Nav #Layer_1 {
+	width: 20;
+}

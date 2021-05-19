@@ -1,0 +1,6 @@
+.welcome {
+	background-image: url(../assets/background-welcome-big.png);
+	background-size: cover;
+	width: 100%;
+	height: 100vh;
+}
