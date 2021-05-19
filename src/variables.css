@@ -1,0 +1,32 @@
+:root {
+	scroll-behavior: smooth;
+	/* Colors */
+	--color-black: #000000;
+	--color-white: #fff;
+	--color-dark-brown: #4f322e;
+	--color-cream: #e0dad5;
+	--color-orange: #bc6600;
+	--color-blue: #36546c;
+	--color-grey: #d6d6d6;
+	--color-light-orange: #dcab83;
+	--color-cream-orange: #e2c6ae;
+	/* Typefaces */
+	--display-font: 'Dancing Script', cursive;
+	--text-font: 'Montserrat', sans-serif;
+	--font-size-text14: 14px;
+	--font-size-text12: 12px;
+	--font-size-title30: 30px;
+	--font-size-text1: 16px;
+	--font-size-subtitle: 20px;
+	--font-size-small10: 10px;
+	--font-size-subtitle25: 25px;
+	--font-size-subtitle18: 18px;
+}
+
+button {
+	border-radius: 20px !important;
+	width: 245px;
+	height: 45px;
+	font-size: var(--font-size-text1);
+	font-weight: 600;
+}
