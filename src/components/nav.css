@@ -11,6 +11,11 @@
 	padding: 15px;
 	box-sizing: border-box;
 }
+@media only screen and (min-width: 768px) {
+	.Nav {
+		width: 100%;
+	}
+}
 .Nav nav {
 	display: flex;
 }

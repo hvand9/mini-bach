@@ -7,7 +7,7 @@ import './home.css';
 
 const Home = () => {
 	return (
-		<Grid container xs={12} className="Home">
+		<Grid container className="Home">
 			<Grid item xs={12}>
 				<img src={logo} alt="logo" className="logo" />
 			</Grid>

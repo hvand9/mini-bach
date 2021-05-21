@@ -10,30 +10,27 @@ const useFetch = (collection) => {
 		() => {
 			const abortCont = new AbortController();
 
-			projectFirestore
-				.collection(collection, { signal: abortCont.signal })
-				.orderBy('createdAt')
-				.onSnapshot(
-					(snap) => {
-						let results = [];
-						snap.docs.forEach((doc) => {
-							doc.data().launchDate && results.push({ ...doc.data(), id: doc.id });
-						});
-						setData(results);
-						setError(null);
+			projectFirestore.collection(collection, { signal: abortCont.signal }).onSnapshot(
+				(snap) => {
+					let results = [];
+					snap.docs.forEach((doc) => {
+						results.push({ ...doc.data(), id: doc.id });
+					});
+					setData(results);
+					setError(null);
+					setIsPending(false);
+				},
+				(err) => {
+					if (err.name === 'AbortError') {
+						console.log('fetch aborted');
+					} else {
+						setData(null);
+						setError(err.message);
 						setIsPending(false);
-					},
-					(err) => {
-						if (err.name === 'AbortError') {
-							console.log('fetch aborted');
-						} else {
-							setData(null);
-							setError(err.message);
-							setIsPending(false);
-							console.log(err.message);
-						}
+						console.log(err.message);
 					}
-				);
+				}
+			);
 
 			return () => abortCont.abort();
 		},
