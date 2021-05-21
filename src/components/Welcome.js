@@ -16,6 +16,7 @@ const Welcome = () => {
 	const { user } = useGetUser();
 	const { data, isPending, error } = useFetch('cafes');
 	// console.log(user);
+	//const history = useHistory()
 
 	// useEffect(() => {
 	// 	if(!user){
