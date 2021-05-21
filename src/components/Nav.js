@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-	Grid,
-	Typography
-	// Button,
-	// BottomNavigation,
-	// BottomNavigationAction
-} from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import './nav.css';
 import { Link } from 'react-router-dom';
 
