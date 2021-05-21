@@ -1,14 +1,30 @@
+@import url(../variables.css);
+
 .Nav {
 	background-color: var(--color-blue);
 	height: 74px;
 	width: 100%;
 	position: fixed;
+	right: 0;
 	bottom: 0;
+	left: 0;
+	padding: 15px;
+	box-sizing: border-box;
 }
-.st0 {
-	fill: #c4c4c4;
+.Nav nav {
+	display: flex;
+}
+.Nav .iconColor {
+	fill: var(--color-grey);
 }
 
-.Nav #Layer_1 {
-	width: 20;
+.Nav .icons {
+	width: 35px;
+	height: 26px;
+}
+.Nav .nav-link {
+	text-decoration: none !important;
+}
+.Nav .nav-link p {
+	font-size: var(--font-size-text12);
 }

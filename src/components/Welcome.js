@@ -6,7 +6,7 @@ import Nav from './Nav';
 
 const Welcome = () => {
 	return (
-		<Grid container xs={12} className="welcome">
+		<Grid container className="welcome">
 			<Grid item xs={12}>
 				<img src={logo} alt="logo" />
 			</Grid>
