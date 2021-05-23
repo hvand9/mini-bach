@@ -36,3 +36,14 @@ a {
 	background-color: var(--color-blue) !important;
 	color: var(--color-grey) !important;
 }
+
+.btn {
+	border-radius: 20px !important;
+	width: 60%;
+	height: 40px;
+	font-size: var(--font-size-text1);
+	font-weight: 600;
+	text-transform: capitalize !important;
+	background-color: var(--color-blue) !important;
+	color: var(--color-grey) !important;
+}
