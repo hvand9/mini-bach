@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { projectFirestore } from '../firebase/config';
 
-const useDocument = (collection) => {
+const useDocument = () => {
 	const [ isPending, setIsPending ] = useState(false);
 	const [ error, setError ] = useState(null);
 
@@ -23,16 +23,36 @@ const useDocument = (collection) => {
 	//   }
 	// };
 
-	const addDoc = async (doc) => {
+	const addDoc = async (doc, collection) => {
 		setIsPending(true);
 		setError(null);
 
 		try {
 			const res = await projectFirestore.collection(collection).add(doc);
+			// setId(await res.id);
 			setIsPending(false);
 			return res;
 		} catch (err) {
-			setError('could not add doc');
+			setError('could not add doc in collection');
+			setIsPending(false);
+			console.log(err.message);
+		}
+	};
+
+	const addSubDoc = async (doc, collection, collection2, id) => {
+		setIsPending(true);
+		setError(null);
+
+		try {
+			const res = await projectFirestore
+				.collection(collection)
+				.doc(id)
+				.collection(collection2)
+				.add(doc);
+			setIsPending(false);
+			return res;
+		} catch (err) {
+			setError('could not add doc in sub-collection');
 			setIsPending(false);
 			console.log(err.message);
 		}
@@ -54,7 +74,7 @@ const useDocument = (collection) => {
 	//   }
 	// };
 
-	return { error, isPending, addDoc };
+	return { error, isPending, addDoc, addSubDoc };
 };
 
 export default useDocument;
