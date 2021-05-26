@@ -25,7 +25,7 @@ const PublicCafe = () => {
 	};
 
 	return (
-		<Grid container xs={12} className="public-cafe">
+		<Grid container className="public-cafe">
 			<Grid item xs={12} className="header" align="left">
 				<img src={logo} alt="logo" />
 				<Typography variant="h4">Public Cafés</Typography>
@@ -42,7 +42,7 @@ const PublicCafe = () => {
 					InputProps={{
 						startAdornment: (
 							<InputAdornment position="start">
-								<i class="fas fa-search" />
+								<i className="fas fa-search" />
 							</InputAdornment>
 						)
 					}}
@@ -67,10 +67,14 @@ const PublicCafe = () => {
 							})
 							.map((cafes) => {
 								return (
-									<Link to={`/cafe-details/${cafes.id}`} className="cafe">
+									<Link
+										to={`/cafe-details/${cafes.id}`}
+										className="cafe"
+										key={cafes.id}
+									>
 										<Grid item xs={12} className="cafe-grid">
 											<Button>
-												<i class="fas fa-save" />
+												<i className="fas fa-save" />
 											</Button>
 											<img src={cafes.imageURL} alt={cafes.name} />
 											<div>
