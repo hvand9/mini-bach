@@ -10,6 +10,7 @@
 	left: 0;
 	padding: 15px;
 	box-sizing: border-box;
+	box-shadow: 0px -1px 20px 2px var(--color-dark-brown);
 }
 @media only screen and (min-width: 768px) {
 	.Nav {
@@ -21,6 +22,10 @@
 }
 .Nav .iconColor {
 	fill: var(--color-grey);
+}
+.Nav .current {
+	fill: var(--color-light-orange);
+	color: var(--color-light-orange);
 }
 
 .Nav .icons {

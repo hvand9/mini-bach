@@ -44,16 +44,29 @@ const CreateCafe = (props) => {
 	const [ inputError, setInputError ] = useState('');
 	const [ addError, setAddError ] = useState(null);
 	const [ addPending, setAddPending ] = useState(true);
+	const [ nameError, setNameError ] = useState(false);
+	const [ descError, setDescError ] = useState(false);
+	const [ tbError, setTbError ] = useState(false);
+	const [ uNumError, setUNumError ] = useState(false);
 
 	const handleInput = (e) => {
 		const { name, value } = e.target;
 		// console.log(name, value);
-		setData((prevData) => {
-			return {
-				...prevData,
-				[name]: value
-			};
-		});
+		if (name === 'numTables' || name === 'numUsers') {
+			setData((prevData) => {
+				return {
+					...prevData,
+					[name]: Number(value)
+				};
+			});
+		} else {
+			setData((prevData) => {
+				return {
+					...prevData,
+					[name]: value
+				};
+			});
+		}
 	};
 
 	const handleImage = (e) => {
@@ -73,15 +86,22 @@ const CreateCafe = (props) => {
 		if (file) {
 			await uploadImage(file);
 
-			projectStorage.ref('/cafe-pictures').child(file.name).getDownloadURL().then((url) => {
-				setData((prevData) => {
-					return {
-						...prevData,
-						imagePath: `/cafe-pictures/${file.name}`,
-						imageUrl: url
-					};
+			projectStorage
+				.ref('/cafe-pictures')
+				.child(file.name)
+				.getDownloadURL()
+				.then((url) => {
+					setData((prevData) => {
+						return {
+							...prevData,
+							imagePath: `/cafe-pictures/${file.name}`,
+							imageUrl: url
+						};
+					});
+				})
+				.catch((err) => {
+					setFileError(err.message);
 				});
-			});
 		}
 	};
 
@@ -147,15 +167,21 @@ const CreateCafe = (props) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (
-			!data.name ||
+			nameError ||
 			!data.imagePath ||
 			!data.imageUrl ||
-			!data.categories ||
-			!data.numTables ||
-			!data.numUsers
+			uNumError ||
+			tbError ||
+			descError ||
+			fileError
 		) {
 			// console.log(data);
 			setInputError('Complete required fields!');
+			if (!data.imagePath || !data.imageUrl) {
+				setFileError('Is required to add an image and upload');
+			} else {
+				setFileError(null);
+			}
 		} else {
 			const doc = {
 				name: data.name + ' Café',
@@ -271,16 +297,21 @@ const CreateCafe = (props) => {
 				</Grid>
 				<Grid item xs={12}>
 					<TextField
+						error={nameError}
 						label="Name"
 						placeholder="Name"
 						variant="outlined"
 						name="name"
 						onChange={handleInput}
 						required={true}
+						helperText={nameError ? 'Add a Name for your café. Min 2 char' : ''}
+						onBlur={(e) =>
+							data.name.length > 2 ? setNameError(false) : setNameError(true)}
 					/>
 				</Grid>
 				<Grid item xs={12}>
 					<TextField
+						error={descError}
 						required={true}
 						id="outlined-textarea"
 						label="Description"
@@ -290,6 +321,9 @@ const CreateCafe = (props) => {
 						rows={4}
 						name="description"
 						onChange={handleInput}
+						helperText={descError ? 'Add some description. Min 5 char' : ''}
+						onBlur={(e) =>
+							data.description.length > 5 ? setDescError(false) : setDescError(true)}
 					/>
 				</Grid>
 				<Grid item xs={12}>
@@ -374,17 +408,25 @@ const CreateCafe = (props) => {
 				</Grid>
 				<Grid item xs={12}>
 					<TextField
+						error={tbError}
 						required={true}
 						type="number"
 						variant="outlined"
 						label="Number of Tables"
 						inputProps={{ min: 1 }}
 						name="numTables"
+						onBlur={(e) =>
+							data.numTables && (data.numTables >= 1 && data.numTables <= 10)
+								? setTbError(false)
+								: setTbError(true)}
 						onChange={handleInput}
+						helperText={tbError ? 'Add at least 1 table. max of 10' : ''}
+						InputProps={{ inputProps: { min: 1, max: 10 } }}
 					/>
 				</Grid>
 				<Grid item xs={12}>
 					<TextField
+						error={uNumError}
 						id="outlined-number"
 						required={true}
 						type="number"
@@ -393,6 +435,12 @@ const CreateCafe = (props) => {
 						inputProps={{ min: 1 }}
 						name="numUsers"
 						onChange={handleInput}
+						onBlur={(e) =>
+							data.numUsers && (data.numUsers >= 2 && data.numUsers <= 10)
+								? setUNumError(false)
+								: setUNumError(true)}
+						helperText={uNumError ? 'Min of 2 users, MAX OF 10' : ''}
+						InputProps={{ inputProps: { min: 2, max: 10 } }}
 					/>
 				</Grid>
 				<Grid item xs={12} align="center">
@@ -427,23 +475,3 @@ const CreateCafe = (props) => {
 };
 
 export default CreateCafe;
-
-// import React, { useState } from 'react';
-// import CreateCafe from './CreateCafe';
-
-// // const PublicCafe = () => {
-// // 	const [ showModal, setShowModal ] = useState(false);
-
-// // 	const toggleModal = () => {
-// // 		setShowModal(!showModal);
-// // 	};
-// // 	return (
-// // 		<div>
-// // 			<h1>Public Cafes</h1>
-// // 			{showModal && <CreateCafe show={showModal} toggleModal={toggleModal} />}
-// // 			<button onClick={toggleModal}>open</button>
-// // 		</div>
-// // 	);
-// // };
-
-// // export default PublicCafe;
