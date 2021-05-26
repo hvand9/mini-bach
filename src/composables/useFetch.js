@@ -12,12 +12,11 @@ const useFetch = (collection) => {
 
 			projectFirestore
 				.collection(collection, { signal: abortCont.signal })
-				.orderBy('createdAt')
 				.onSnapshot(
 					(snap) => {
 						let results = [];
 						snap.docs.forEach((doc) => {
-							doc.data().launchDate && results.push({ ...doc.data(), id: doc.id });
+							results.push({ ...doc.data(), id: doc.id });
 						});
 						setData(results);
 						setError(null);
