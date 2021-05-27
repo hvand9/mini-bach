@@ -1,6 +1,7 @@
 import { projectAuth } from '../firebase/config';
 import { useState } from 'react';
 
+
 const useSignup = () => {
 	const [ error, setError ] = useState(null);
 

@@ -1,0 +1,111 @@
+@import url(../variables.css);
+
+.Sign {
+	background-image: url(../assets/background-yellow-big.png);
+	background-size: cover;
+	width: 100%;
+	height: 100vh;
+}
+
+.Sign .logo {
+	text-align: left;
+width: 48px;
+height: 44px;
+left: 16px;
+top: 16px;
+}
+
+
+.Sign .title {
+	top: 10%;
+	left: 35%;
+	font-family: var(--display-font);
+	font-size: var(--font-size-title);
+}
+
+.Sign .bttn-box {
+width: 245px;
+height: 54.65px;
+left: 50px;
+top: 500px;
+}
+
+
+.Sign .icons-sign{
+	position: relative;
+	display: flex;
+	padding: 0 30%;
+	margin: auto;
+	justify-content: space-between;
+}
+
+.Sign .facebook{
+/* position: absolute; */
+display: flex;
+width: 48px;
+	height: 48px;
+	
+
+background-color:#36546C;
+border-radius: 50%;
+color: white;
+
+}
+.Sign .facebook i{
+	width: 100%;
+
+	align-self: center;
+}
+
+.Sign .google {
+    /* position: fixed; */
+	display: flex;
+	width: 48px;
+		height: 48px;
+		
+	
+	background-color:#36546C;
+	border-radius: 50%;
+	color: white;	
+
+}
+
+.Sign .google i{
+	width: 100%;
+
+	align-self: center;
+}
+
+
+/* .Sign .MuiFormControl-root{
+	/* width: 100%; */
+	/* padding: 0 10%; 
+}
+
+
+.Sign .MuiFormControl-root input{
+ padding: 10px;
+	
+} */
+
+.Sign .MuiOutlinedInput-root {
+    margin: auto;
+    width: 100%;
+    display: inline-block;
+	border-radius: 20px;
+	background-color: var(--color-grey);
+
+
+}
+
+
+.Sign .MuiFormLabel-root.Mui-focused {
+	color: var(--color-blue);
+}
+.Sign .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+	border-color: var(--color-blue);
+}
+
+
+
+
