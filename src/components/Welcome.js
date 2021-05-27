@@ -15,14 +15,17 @@ SwiperCore.use([ Navigation ]);
 const Welcome = () => {
 	const { user } = useGetUser();
 	const { data, isPending, error } = useFetch('cafes');
+	const history = useHistory();
 	// console.log(user);
-	//const history = useHistory()
 
-	// useEffect(() => {
-	// 	if(!user){
-	// 		 history.push("/");
-	// 	}
-	// });
+	useEffect(
+		() => {
+			if (!user) {
+				history.push('/');
+			}
+		},
+		[ user, history ]
+	);
 
 	return (
 		<Grid container className="welcome">
@@ -38,7 +41,7 @@ const Welcome = () => {
 					<SwiperSlide>
 						<Button
 							to={`/welcome`}
-							className="slide-link private-groups"
+							className="slide-link private-groups btn"
 							component={Link}
 						>
 							<div className="circle">
@@ -66,7 +69,7 @@ const Welcome = () => {
 								<SwiperSlide key={cafe.id}>
 									<Button
 										to={`/cafe-details/${cafe.id}`}
-										className="slide-link"
+										className="slide-link btn"
 										component={Link}
 									>
 										<div className="circle">

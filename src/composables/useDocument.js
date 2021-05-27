@@ -22,6 +22,21 @@ const useDocument = () => {
 	//     setError("could not update document");
 	//   }
 	// };
+	const addUser = async (doc, collection, id) => {
+		setIsPending(true);
+		setError(null);
+
+		try {
+			const res = await projectFirestore.collection(collection).doc(id).set(doc);
+			console.log(res);
+			setIsPending(false);
+			return res;
+		} catch (err) {
+			setError('could not add doc in collection');
+			setIsPending(false);
+			console.log(err.message);
+		}
+	};
 
 	const addDoc = async (doc, collection) => {
 		setIsPending(true);
@@ -74,7 +89,7 @@ const useDocument = () => {
 	//   }
 	// };
 
-	return { error, isPending, addDoc, addSubDoc };
+	return { error, isPending, addDoc, addSubDoc, addUser };
 };
 
 export default useDocument;

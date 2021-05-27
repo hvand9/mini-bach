@@ -3,7 +3,7 @@ import placeholder from '../assets/song-placeholder.png';
 import useStorage from '../composables/useStorage';
 import Alert from '@material-ui/lab/Alert';
 import useDocument from '../composables/useDocument';
-import { projectStorage, projectFirestore } from '../firebase/config';
+import { projectStorage, projectFirestore, timestamp } from '../firebase/config';
 
 import {
 	Collapse,
@@ -195,7 +195,9 @@ const CreateCafe = (props) => {
 			const table = {
 				limitUsers: Number(data.numUsers),
 				numberOfUsers: 0,
-				users: []
+				users: [],
+				name: 'Table',
+				createdAt: timestamp()
 			};
 
 			try {

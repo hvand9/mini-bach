@@ -69,7 +69,7 @@ const PublicCafe = () => {
 								return (
 									<Link
 										to={`/cafe-details/${cafes.id}`}
-										className="cafe"
+										className="cafe btn"
 										key={cafes.id}
 									>
 										<Grid item xs={12} className="cafe-grid">

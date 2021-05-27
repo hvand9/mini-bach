@@ -16,12 +16,12 @@ const Home = () => {
 				<Typography className="title">Welcome</Typography>
 			</Grid>
 			<Grid item xs={12}>
-				<Button variant="contained" to={'/login'} component={Link}>
+				<Button variant="contained" to={'/login'} component={Link} className="btn">
 					Sing in
 				</Button>
 			</Grid>
 			<Grid item xs={12} className="btn-box">
-				<Button variant="contained" to={'/signup'} component={Link}>
+				<Button variant="contained" to={'/signup'} component={Link} className="btn">
 					Sing up
 				</Button>
 			</Grid>
