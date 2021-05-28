@@ -96,15 +96,11 @@ const PublicCafe = () => {
 								})
 								.map((cafes) => {
 									return (
-										<div className="cafe btn">
+										<div className="cafe btn" key={cafes.id}>
 											<Button onClick={(e) => handleSave(e, cafes.id)}>
 												<i className="fas fa-heart" />
 											</Button>
-											<Link
-												className="btn"
-												to={`/cafe-details/${cafes.id}`}
-												key={cafes.id}
-											>
+											<Link className="btn" to={`/cafe-details/${cafes.id}`}>
 												<Grid item xs={12} className="cafe-grid">
 													<img src={cafes.imageURL} alt={cafes.name} />
 													<div>

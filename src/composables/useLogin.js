@@ -13,7 +13,7 @@ const useLogin = () => {
 			// console.log(res);
 			return res;
 		} catch (err) {
-			console.log(error);
+			// console.log(error);
 			setError('Incorrect login credentials');
 		}
 	};

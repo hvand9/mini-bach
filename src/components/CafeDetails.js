@@ -32,10 +32,10 @@ const CafeDetails = () => {
 	};
 
 	return (
-		<Grid container xs={12} className="cafe-details">
+		<Grid container className="cafe-details">
 			<Grid item xs={12} className="header">
 				<Link to={'/public-cafe'}>
-					<i class="fas fa-chevron-left" />
+					<i className="fas fa-chevron-left" />
 				</Link>
 				{data && (
 					<div className="title">
@@ -50,7 +50,7 @@ const CafeDetails = () => {
 				</Collapse>
 			</Grid>
 			<Grid item xs={12} className="grid general">
-				<Link className="cafe btn">
+				<Link className="cafe btn" to="#">
 					<Grid item xs={12} className="cafe-grid">
 						<i className="fas fa-align-left" />
 						<Typography variant="subtitle1">General Chat</Typography>
@@ -64,13 +64,25 @@ const CafeDetails = () => {
 					<Grid item xs={12} className="grid">
 						{dataSub.map((tables, i) => {
 							let num = i + 1;
+
 							return (
-								<Link to={`/tables/${tables.id}`} className="cafe btn">
+								<Link
+									key={tables.id}
+									to={{
+										pathname: `/tables/${tables.id}`,
+										state: {
+											cafeId: id,
+											cafeName: data ? data.name : '',
+											tableNum: num
+										}
+									}}
+									className="cafe btn"
+								>
 									<Grid item xs={12} className="cafe-grid">
 										<i className="fas fa-volume-up" />
 										<div className="table-grid">
 											<Typography variant="subtitle1">
-												{tables.name} {num++}
+												{tables.name} {num}
 											</Typography>
 
 											<div className="table">
