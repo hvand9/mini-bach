@@ -7,7 +7,7 @@ const Nav = (props) => {
 	return (
 		<Grid className="Nav" item xs={12}>
 			<nav>
-				<Link to={'/public-cafe'} className="nav-link">
+				<Link to={'/public-cafe'} className="nav-link btn">
 					<svg version="1.1" className="icons" x="0px" y="0px" viewBox="0 0 40 31">
 						<path
 							className={props.current === 'public' ? 'current' : 'iconColor'}
@@ -39,7 +39,7 @@ const Nav = (props) => {
 						Public
 					</Typography>
 				</Link>
-				<Link to={'/welcome'} className="nav-link">
+				<Link to={'/welcome'} className="nav-link btn">
 					<svg version="1.1" className="icons" x="0px" y="0px" viewBox="0 0 38 31">
 						<path
 							className={props.current === 'private' ? 'current' : 'iconColor'}
@@ -57,7 +57,7 @@ const Nav = (props) => {
 						Private
 					</Typography>
 				</Link>
-				<Link to={'/welcome'} className="nav-link">
+				<Link to={'/welcome'} className="nav-link btn">
 					<svg
 						className="icons"
 						width="22"
@@ -75,7 +75,7 @@ const Nav = (props) => {
 						Events
 					</Typography>
 				</Link>
-				<Link to={'/welcome'} className="nav-link">
+				<Link to={'/welcome'} className="nav-link btn">
 					<svg
 						className="icons"
 						width="22"

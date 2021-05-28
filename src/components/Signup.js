@@ -1,68 +1,157 @@
-import React,{useState} from 'react';
-import { Grid, Typography, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Grid, Typography, Button, InputAdornment } from '@material-ui/core';
 import logo from '../assets/logo-brown-mobile.png';
-import { Link, useHistory  } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { TextField } from '@material-ui/core';
-import useSignup from '../composables/useSignup'
-import './signup.css'; 
+import useSignup from '../composables/useSignup';
+import './signup.css';
 
-const Signup = () => {  
-	const {error, signup} = useSignup() 
-	const [displayName, setDisplayName] = useState('') 
-	const [email, setEmail] = useState('') 
-	const [password, setPassword] = useState('') 
-	const [rpassword, setRpassword] = useState('')
-	const history = useHistory()
+const Signup = () => {
+	const { error, signup } = useSignup();
+	const [ displayName, setDisplayName ] = useState('');
+	const [ email, setEmail ] = useState('');
+	const [ password, setPassword ] = useState('');
+	const [ rPassword, setRPassword ] = useState('');
+	const [ userError, setUserError ] = useState(false);
+	const [ emailError, setEmailError ] = useState(false);
+	const [ passError, setPassError ] = useState(false);
+	const [ rPassError, setRPassError ] = useState(false);
+	const history = useHistory();
 
-	const handlesubmit = async() => {
-		if (displayName && email && password){
-			await signup(email, password, displayName)
+	const handlesubmit = async (e) => {
+		if (!userError && !emailError && !passError && !rPassError) {
+			await signup(email, password, displayName);
 
-			if(!error){
-				history.push('/welcome');
+			if (!error) {
+				history.push('/profile');
 			}
 		}
-	} 
+	};
 
-	return ( <Grid container xs={12} className="Sign">
-	<Grid item xs={12}>
-		<img src={logo} alt="logo" className="logo" />
-		<Typography className="title"variant="h2">Sign up</Typography>
-	</Grid>
-	<Grid item xs={12} className="icons-sign">
-		<div class = "facebook">
-		<i class="fab fa-facebook-f"></i>
-		</div>
+	return (
+		<Grid container className="Sign">
+			<Grid item xs={12} align="left" className="logo-box">
+				<img src={logo} alt="logo" className="logo" />
+			</Grid>
+			<Grid item xs={12} align="center">
+				<Typography className="title" variant="h2">
+					Sign up
+				</Typography>
+			</Grid>
 
-		<div class = "google">
-		<i class="fab fa-google"></i>
-		</div>
-	</Grid>	
-<Grid item xs={12} className="Input">
-  <TextField type="text" className="filled-basic" label="Username" variant="outlined" onChange={(e)=> setDisplayName(e.target.value)} />
-  </Grid>
-  <Grid item xs={12} className="Input">
-  <TextField error={true} helperText="add a correct email"  type="email" ClassName="filled-basic" label="Email" variant="outlined" onChange={(e)=> setEmail(e.target.value)} />
-  </Grid>
-  <Grid item xs={12} className="Input">
-  <TextField type="password" ClassName="filled-basic" label="Password" variant="outlined" onChange={(e)=> setPassword(e.target.value)} />
-  </Grid>
-  <Grid item xs={12} className="Input">
-  <TextField type="password"  ClassName="filled-basic" label="Repeat Password" variant="outlined" onChange={(e)=> setRpassword(e.target.value)} />
-  </Grid>
-	
-		
-	
-		<Grid item xs={12} className="bttn-box">
-		<Button variant="contained" to={'/sign'} component={Link} onClick={handlesubmit}>
-			Sign up
-		</Button>
-	</Grid>
-	
-</Grid>
+			<Grid item xs={12} className="icons-sign">
+				<div className="facebook">
+					<i className="fab fa-facebook-f" />
+				</div>
 
-		
-		
+				<div className="google">
+					<i className="fab fa-google" />
+				</div>
+			</Grid>
+			<Grid item xs={12} align="center" className="hr-box">
+				<hr />
+			</Grid>
+			<Grid item xs={12} className="Input">
+				<TextField
+					error={userError}
+					helperText={userError ? 'add an username. Min 4 char' : ''}
+					type="text"
+					className="filled-basic"
+					placeholder="Username"
+					variant="outlined"
+					onChange={(e) => setDisplayName(e.target.value)}
+					onBlur={() =>
+						displayName.length >= 4 ? setUserError(false) : setUserError(true)}
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position="start">
+								<i className="fas fa-user" />
+							</InputAdornment>
+						)
+					}}
+				/>
+			</Grid>
+			<Grid item xs={12} className="Input">
+				<TextField
+					error={emailError}
+					helperText={emailError ? 'add a correct email' : ''}
+					type="email"
+					className="filled-basic"
+					placeholder="Email"
+					variant="outlined"
+					onChange={(e) => setEmail(e.target.value)}
+					onBlur={() =>
+						email.match(/^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$/)
+							? setEmailError(false)
+							: setEmailError(true)}
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position="start">
+								<i className="fas fa-envelope" />
+							</InputAdornment>
+						)
+					}}
+				/>
+			</Grid>
+
+			<Grid item xs={12} className="Input">
+				<TextField
+					error={passError}
+					helperText={passError ? 'add a password. Min 6 char' : ''}
+					type="password"
+					className="filled-basic"
+					name="password"
+					placeholder="Password"
+					variant="outlined"
+					onChange={(e) => setPassword(e.target.value)}
+					onBlur={(e) =>
+						password.length >= 6 ? setPassError(false) : setPassError(true)}
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position="start">
+								<i className="fas fa-lock" />
+							</InputAdornment>
+						)
+					}}
+				/>
+			</Grid>
+			<Grid item xs={12} className="Input">
+				<TextField
+					error={rPassError}
+					helperText={rPassError ? 'password must match' : ''}
+					type="password"
+					className="filled-basic"
+					variant="outlined"
+					placeholder="Repeat Password"
+					onChange={(e) => setRPassword(e.target.value)}
+					onBlur={(e) =>
+						rPassword === password && rPassword
+							? setRPassError(false)
+							: setRPassError(true)}
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position="start">
+								<i className="fas fa-lock" />
+							</InputAdornment>
+						)
+					}}
+				/>
+			</Grid>
+
+			<Grid item xs={12} className="bttn-box">
+				<Button variant="contained" onClick={handlesubmit} className="btn">
+					Sign up
+				</Button>
+			</Grid>
+			<Grid item xs={12}>
+				<Typography className="change-sign">
+					I already have an account.{' '}
+					<Link to={'/login'} className="link">
+						Login
+					</Link>
+				</Typography>
+			</Grid>
+		</Grid>
 	);
 };
 

@@ -26,7 +26,7 @@
 	--font-size-subtitle18: 18px;
 }
 
-a {
+/* a {
 	border-radius: 20px !important;
 	width: 60%;
 	height: 40px;
@@ -35,7 +35,7 @@ a {
 	text-transform: capitalize !important;
 	background-color: var(--color-blue) !important;
 	color: var(--color-grey) !important;
-}
+} */
 
 .btn {
 	border-radius: 20px !important;
