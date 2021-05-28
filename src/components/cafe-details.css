@@ -1,0 +1,115 @@
+@import url(../variables.css);
+
+.cafe-details {
+	background-image: url(../assets//background-cafe-big.png);
+	background-size: cover;
+	background-attachment: fixed;
+	width: 100%;
+	height: 100vh;
+}
+.cafe-details.MuiGrid-container {
+	align-content: flex-start;
+}
+
+/* header */
+.cafe-details .header i {
+	color: var(--color-cream);
+	font-size: 25px;
+	padding: 0 0 0 10px;
+}
+.cafe-details .header {
+	display: flex;
+	padding-top: 10px;
+}
+.cafe-details .header .title {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+.cafe-details .header img {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-right: 10px;
+}
+.cafe-details .header h6 {
+	color: var(--color-grey);
+	font-weight: 500;
+}
+
+/* tables */
+.cafe-details .cafes-list {
+	overflow-y: scroll;
+	height: 61vh;
+	margin-bottom: 70px;
+
+	padding: 0 10px 0 20px;
+}
+
+.cafe-details .cafes-list .grid,
+.cafe-details .grid {
+	display: grid;
+	row-gap: 7px;
+}
+.cafe-details .cafes-list .cafe,
+.cafe-details .cafe {
+	background-color: var(--color-blue);
+	width: 100%;
+	height: 100%;
+	color: var(--color-grey);
+	text-decoration: none;
+	position: relative;
+}
+.cafe-details .cafes-list .cafe .cafe-grid,
+.cafe-details .cafe .cafe-grid {
+	display: flex;
+	padding: 10px 20px;
+	width: 100%;
+	position: relative;
+}
+.cafe-details .cafes-list .cafe .cafe-grid i,
+.cafe-details .cafe .cafe-grid i {
+	font-size: 20px;
+	align-self: center;
+	padding-right: 15px;
+}
+.cafe-details .general {
+	padding: 60px 20px 7px 20px;
+}
+.cafe-details .general .cafe .cafe-grid {
+	padding: 20px;
+}
+.cafe-details .cafe .cafe-grid .table {
+	position: relative;
+	display: flex;
+	align-content: center;
+}
+.cafe-details .cafe .cafe-grid .table p {
+	font-size: var(--font-size-small10);
+	color: var(--color-dark-brown);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.cafe-details .cafe .cafe-grid .table-grid {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+}
+
+.cafe-details .user-seat {
+	fill: var(--color-orange);
+}
+
+/* button add */
+.cafe-details .add-btn {
+	position: absolute;
+	bottom: 100px;
+	right: 10%;
+	border-radius: 50%;
+	z-index: 200;
+}

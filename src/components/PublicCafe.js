@@ -73,8 +73,8 @@ const PublicCafe = () => {
 				/>
 			</Grid>
 			<Grid item xs={12} className="show-btns">
-				<Button onClick={() => setShowAll(true)}>ALL</Button>
-				<Button onClick={() => setShowAll(false)}>Saved</Button>
+				<Button onClick={() => setShowAll(true)}>All Cafés</Button>
+				<Button onClick={() => setShowAll(false)}>Favorites</Button>
 			</Grid>
 			{showAll && (
 				<Grid item xs={12} className="cafes-list">
@@ -98,7 +98,7 @@ const PublicCafe = () => {
 									return (
 										<div className="cafe btn">
 											<Button onClick={(e) => handleSave(e, cafes.id)}>
-												<i className="fas fa-save" />
+												<i className="fas fa-heart" />
 											</Button>
 											<Link
 												className="btn"
