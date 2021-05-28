@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import PublicCafe from './components/PublicCafe';
 import Welcome from './components/Welcome';
 import CafeDetails from './components/CafeDetails';
+import Table from './components/Table';
 
 const THEME = createMuiTheme({
 	typography: {
@@ -46,6 +47,9 @@ function App() {
 						</Route>
 						<Route path="/cafe-details/:id">
 							<CafeDetails />
+						</Route>
+						<Route path="/tables/:id">
+							<Table />
 						</Route>
 					</Switch>
 				</div>
