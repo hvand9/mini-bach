@@ -4,6 +4,7 @@ import useStorage from '../composables/useStorage';
 import Alert from '@material-ui/lab/Alert';
 import useDocument from '../composables/useDocument';
 import { projectStorage, projectFirestore, timestamp } from '../firebase/config';
+import useGetUser from '../composables/useGetUser';
 
 import {
 	Collapse,
@@ -48,6 +49,7 @@ const CreateCafe = (props) => {
 	const [ descError, setDescError ] = useState(false);
 	const [ tbError, setTbError ] = useState(false);
 	const [ uNumError, setUNumError ] = useState(false);
+	const { user } = useGetUser();
 
 	const handleInput = (e) => {
 		const { name, value } = e.target;
@@ -190,7 +192,7 @@ const CreateCafe = (props) => {
 				imagePath: data.imagePath,
 				imageURL: url,
 				categories: data.categories,
-				host: ''
+				host: user.uid
 			};
 			const table = {
 				limitUsers: Number(data.numUsers),

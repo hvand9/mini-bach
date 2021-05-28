@@ -10,10 +10,10 @@ const useLogin = () => {
 		try {
 			const res = await projectAuth.signInWithEmailAndPassword(email, password);
 			setError(null);
-			console.log(res);
+			// console.log(res);
 			return res;
 		} catch (err) {
-			console.log(err.value);
+			console.log(error);
 			setError('Incorrect login credentials');
 		}
 	};
