@@ -5,29 +5,37 @@ import {
 	Button,
 	InputAdornment,
 	FormControlLabel,
-	Checkbox
+	Checkbox,
+	Collapse
 } from '@material-ui/core';
 import logo from '../assets/logo-brown-mobile.png';
 import { Link, useHistory } from 'react-router-dom';
 import { TextField } from '@material-ui/core';
-import useLogin from '../composables/useLogin';
+import Alert from '@material-ui/lab/Alert';
+import { projectAuth } from '../firebase/config';
 import './signup.css';
 
 const Login = () => {
-	const { error, login } = useLogin();
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 	const [ loginCheck, setLoginCheck ] = useState(false);
 	const [ emailError, setEmailError ] = useState(false);
 	const [ passError, setPassError ] = useState(false);
+	const [ error, setError ] = useState(null);
 	const history = useHistory();
 
 	const handlesubmit = async () => {
-		if (!emailError && !passError) {
-			await login(email, password);
-
-			if (!error) {
+		if (!emailError && !passError && email && password) {
+			try {
+				const res = await projectAuth.signInWithEmailAndPassword(email, password);
+				setError(null);
+				// console.log('sucess');
 				history.push('/welcome');
+				return res;
+			} catch (err) {
+				// console.log('fail');
+				console.log(err);
+				setError('User not found. Please signup or recover password');
 			}
 		}
 	};
@@ -97,6 +105,11 @@ const Login = () => {
 					}
 					label="remember me"
 				/>
+			</Grid>
+			<Grid item xs={12} align="center">
+				<Collapse in={error !== null}>
+					<Alert severity="error">{error}</Alert>
+				</Collapse>
 			</Grid>
 			<Grid item xs={12} className="bttn-box">
 				<Button variant="contained" onClick={handlesubmit} className="btn">

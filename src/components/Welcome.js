@@ -4,6 +4,7 @@ import family from '../assets/family-group-500.png';
 import { Grid, Typography, CircularProgress, Button } from '@material-ui/core';
 import useGetUser from '../composables/useGetUser';
 import useFetch from '../composables/useFetch';
+import useFetchOne from '../composables/useFetchOne';
 import { useHistory, Link } from 'react-router-dom';
 import './welcome.css';
 import Nav from './Nav';
@@ -15,13 +16,22 @@ SwiperCore.use([ Navigation ]);
 const Welcome = () => {
 	const { user } = useGetUser();
 	const { data, isPending, error } = useFetch('cafes');
+	const { data: dataUser } = useFetchOne('users', user.uid);
 	const history = useHistory();
 
 	const checkUser = () => {
 		if (user) {
-			localStorage.setItem('userId', JSON.stringify(user.uid));
+			localStorage.setItem(
+				'user',
+				JSON.stringify({
+					id: user.uid,
+					username: user.displayName,
+					userImg: dataUser ? dataUser.pictureURL : ''
+				})
+			);
 		}
-		if (!localStorage.userId) {
+		// localStorage.removeItem('user');
+		if (!localStorage.user) {
 			history.push('/');
 		}
 	};

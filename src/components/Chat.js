@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Grid, Typography, CircularProgress, Button, TextField } from '@material-ui/core';
 import useFetchChat from '../composables/useFetchChat';
 import Alert from '@material-ui/lab/Alert';
@@ -45,6 +45,10 @@ const Chat = (props) => {
 			}
 		}
 	};
+
+	useEffect(() => {
+		endMsgBoxRef.current.scrollIntoView();
+	});
 	return (
 		<Grid item xs={12} className="Chat">
 			<Grid item xs={12} className="chat-box">

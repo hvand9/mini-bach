@@ -29,7 +29,7 @@ const PublicCafe = () => {
 	const { updateField } = useDocument();
 
 	const checkUser = () => {
-		if (!localStorage.userId) {
+		if (!localStorage.user) {
 			history.push('/');
 		}
 	};

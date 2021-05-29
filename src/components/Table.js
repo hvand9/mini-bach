@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import useFetchOneSub from '../composables/useFetchOneSub';
+import useDocument from '../composables/useDocument';
+import { useHistory } from 'react-router-dom';
 import { Grid, Typography, CircularProgress, Button } from '@material-ui/core';
-import { Link, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import videoImage from '../assets/musician-celebrating-jazz-day.jpg';
 import NavTable from './NavTable';
@@ -9,13 +10,17 @@ import Chat from './Chat';
 import Voice from './Voice';
 import Video from './Video';
 import EditTable from './EditTabel';
+import firebase from 'firebase/app';
 
 import './table.css';
 
-const Table = (props) => {
-	const location = useLocation();
-	const { cafeId, cafeName, tableNum } = location.state;
+const Table = () => {
+	const cafeName = localStorage.getItem('cafeName');
+	const cafeId = localStorage.getItem('cafeId');
+	const tableNum = localStorage.getItem('tableNum');
 	const { id } = useParams();
+	const history = useHistory();
+	const { updateSubDoc, error, isPending } = useDocument();
 	const { dataOneSub, errorOneSub, isLoadingOneSub } = useFetchOneSub(
 		'cafes',
 		cafeId,
@@ -23,20 +28,24 @@ const Table = (props) => {
 		id
 	);
 	const [ navIcon, setNavIcon ] = useState('voice');
-	// console.log(dataOneSub);
-	// const audioTune = new Audio('../assets/Marshmallow-(Prod-by-Lukrembo).mp3');
-	// const [ playInLoop, setPlayInLoop ] = useState(false);
 
-	// useEffect(() => {
-	// 	audioTune.load();
-	// }, []);
+	const leaveTable = () => {
+		const user = JSON.parse(localStorage.getItem('user'));
+		let arrayLength = [];
+		arrayLength = dataOneSub && dataOneSub.users;
 
-	// useEffect(
-	// 	() => {
-	// 		audioTune.loop = playInLoop;
-	// 	},
-	// 	[ playInLoop, audioTune ]
-	// );
+		const doc = {
+			numberOfUsers: arrayLength.length - 1,
+			users: firebase.firestore.FieldValue.arrayRemove({
+				imgURL: user.userImg,
+				userName: user.username
+			})
+		};
+		updateSubDoc(doc, cafeId, 'cafes', id, 'tables');
+		if (!isPending && error === null) {
+			history.push(`/cafe-details/${cafeId}`);
+		}
+	};
 
 	const clickNav = (value) => {
 		setNavIcon(value);
@@ -44,21 +53,12 @@ const Table = (props) => {
 	return (
 		<Grid container className="table-details">
 			<Grid item xs={12} className="video-place">
-				{/* <iframe
-					width="100%"
-					height="315"
-					src="https://www.youtube-nocookie.com/embed/7PL7ADKDYcw?controls=0"
-					title="YouTube video player"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen
-				/> */}
 				<img src={videoImage} alt="video music" />
 			</Grid>
 			<Grid item xs={12} className="header">
-				<Link to={`/cafe-details/${cafeId}`} className="back">
+				<Button className="back" onClick={leaveTable}>
 					<i className="fas fa-chevron-left" />
-				</Link>
+				</Button>
 				<Typography variant="h2">{cafeName}</Typography>
 				<i className="fas fa-heart heart" />
 			</Grid>
@@ -71,7 +71,10 @@ const Table = (props) => {
 							{dataOneSub.name} {tableNum}
 						</Typography>
 						<div>
-							<Button className="edit-btn" onClick={() => clickNav('edit')}>
+							<Button
+								className={navIcon === 'edit' ? 'current edit-btn' : 'edit-btn'}
+								onClick={() => clickNav('edit')}
+							>
 								<i className="fas fa-edit" />
 								<p>Edit</p>
 							</Button>
@@ -83,10 +86,10 @@ const Table = (props) => {
 				)}
 			</Grid>
 			<Grid item xs={12}>
-				{navIcon === 'voice' && <Voice />}
+				{navIcon === 'voice' && <Voice cafeId={cafeId} tableId={id} />}
 				{navIcon === 'video' && <Video />}
 				{navIcon === 'chat' && <Chat cafeId={cafeId} tableId={id} clickNav={clickNav} />}
-				{navIcon === 'edit' && <EditTable />}
+				{navIcon === 'edit' && <EditTable clickNav={clickNav} />}
 			</Grid>
 			{navIcon !== 'chat' &&
 			navIcon !== 'edit' && <NavTable clickNav={clickNav} navIcon={navIcon} />}

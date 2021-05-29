@@ -51,6 +51,7 @@
 	border-radius: 50%;
 	background-color: var(--color-cream-orange);
 	object-fit: cover;
+	object-position: center;
 }
 .modal-create .picture-box .choose-file {
 	text-transform: capitalize;

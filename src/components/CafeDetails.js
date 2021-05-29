@@ -3,19 +3,21 @@ import useFetchOne from '../composables/useFetchOne';
 import useFetchSub from '../composables/useFetchSub';
 import { Collapse, Grid, Typography, CircularProgress, Button } from '@material-ui/core';
 import Nav from './Nav';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import plus from '../assets/plus-icon.png';
 import useDocument from '../composables/useDocument';
 import { timestamp } from '../firebase/config';
 import Alert from '@material-ui/lab/Alert';
+import firebase from 'firebase/app';
 import './cafe-details.css';
 
 const CafeDetails = () => {
 	const { id } = useParams();
 	const { data } = useFetchOne('cafes', id);
 	const { dataSub, isPendingSub, errorSub } = useFetchSub('cafes', id, 'tables');
-	const { addSubDoc, error } = useDocument();
+	const { addSubDoc, error, updateSubDoc, isPending } = useDocument();
+	const history = useHistory();
 
 	const handleAddTable = () => {
 		if (dataSub) {
@@ -28,6 +30,29 @@ const CafeDetails = () => {
 			};
 
 			addSubDoc(table, 'cafes', 'tables', id);
+		}
+	};
+
+	const handleUserEnter = (tId, limit, numUser, num, users) => {
+		if (numUser < limit) {
+			const user = JSON.parse(localStorage.getItem('user'));
+			let arrayLength = [];
+			arrayLength = users;
+
+			const doc = {
+				numberOfUsers: arrayLength.length + 1,
+				users: firebase.firestore.FieldValue.arrayUnion({
+					imgURL: user.userImg,
+					userName: user.username
+				})
+			};
+			updateSubDoc(doc, id, 'cafes', tId, 'tables');
+			if (!isPending && error === null) {
+				localStorage.setItem('cafeId', id);
+				localStorage.setItem('cafeName', data ? data.name : '');
+				localStorage.setItem('tableNum', num);
+				history.push(`/tables/${tId}`);
+			}
 		}
 	};
 
@@ -66,16 +91,16 @@ const CafeDetails = () => {
 							let num = i + 1;
 
 							return (
-								<Link
+								<Button
 									key={tables.id}
-									to={{
-										pathname: `/tables/${tables.id}`,
-										state: {
-											cafeId: id,
-											cafeName: data ? data.name : '',
-											tableNum: num
-										}
-									}}
+									onClick={() =>
+										handleUserEnter(
+											tables.id,
+											tables.limitUsers,
+											tables.numberOfUsers,
+											num,
+											tables.users
+										)}
 									className="cafe btn"
 								>
 									<Grid item xs={12} className="cafe-grid">
@@ -187,7 +212,7 @@ const CafeDetails = () => {
 											</div>
 										</div>
 									</Grid>
-								</Link>
+								</Button>
 							);
 						})}{' '}
 					</Grid>

@@ -1,24 +1,24 @@
-import { projectAuth } from '../firebase/config';
-import { useState } from 'react';
+// import { projectAuth } from '../firebase/config';
+// import { useState } from 'react';
 
-const useLogin = () => {
-	const [ error, setError ] = useState(null);
+// const useLogin = () => {
+// 	const [ error, setError ] = useState(null);
 
-	const login = async (email, password) => {
-		setError(null);
+// 	const login = async (email, password) => {
+// 		setError(null);
 
-		try {
-			const res = await projectAuth.signInWithEmailAndPassword(email, password);
-			setError(null);
-			// console.log(res);
-			return res;
-		} catch (err) {
-			// console.log(error);
-			setError('Incorrect login credentials');
-		}
-	};
+// 		try {
+// 			const res = await projectAuth.signInWithEmailAndPassword(email, password);
+// 			setError(null);
+// 			// console.log(res);
+// 			return res;
+// 		} catch (err) {
+// 			console.log(err);
+// 			setError('User not found. Please signup or recover');
+// 		}
+// 	};
 
-	return { error, login };
-};
+// 	return { error, login };
+// };
 
-export default useLogin;
+// export default useLogin;

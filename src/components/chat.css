@@ -5,6 +5,7 @@
 	height: 20px;
 	border-radius: 50%;
 	object-fit: cover;
+	object-position: center;
 	margin-right: 10px;
 }
 .Chat .chat-box {
@@ -12,7 +13,6 @@
 	height: 43vh;
 	padding: 20px;
 	overflow-y: scroll;
-	scroll-behavior: smooth;
 }
 .Chat .chat-box .msg {
 	display: grid;

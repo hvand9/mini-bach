@@ -54,6 +54,7 @@
 	border-radius: 50%;
 	background-color: var(--color-cream-orange);
 	object-fit: cover;
+	object-position: center;
 }
 .Profile .picture-box .choose-file {
 	text-transform: capitalize;

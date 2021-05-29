@@ -6,7 +6,7 @@ const NavTable = (props) => {
 	return (
 		<Grid item xs={12} className="nav-table">
 			<Button
-				onClick={() => props.clickNav('settings')}
+				onClick={() => props.clickNav('voice')}
 				className={props.navIcon === 'settings' ? 'current' : ''}
 			>
 				<i className="fas fa-cog" />

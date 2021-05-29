@@ -8,23 +8,48 @@ const useDocument = () => {
 	const [ error, setError ] = useState(null);
 	const { user } = useGetUser();
 
-	// const updateDoc = async (doc, id) => {
-	//   setIsPending(true);
-	//   setError(null);
+	const updateSubDoc = async (doc, id1, collection, id2, subCollection) => {
+		setIsPending(true);
+		setError(null);
 
-	//   try {
-	//     const res = await projectFirestore
-	//       .collection(collection)
-	//       .doc(id)
-	//       .update(doc);
-	//     setIsPending(false);
-	//     return res;
-	//   } catch (err) {
-	//     console.log(err.message);
-	//     setIsPending(false);
-	//     setError("could not update document");
-	//   }
-	// };
+		try {
+			const res = await projectFirestore
+				.collection(collection)
+				.doc(id1)
+				.collection(subCollection)
+				.doc(id2)
+				.update(doc);
+			setIsPending(false);
+			return res;
+		} catch (err) {
+			console.log(err.message);
+			setIsPending(false);
+			setError('could not update document');
+		}
+	};
+
+	const updateFieldSubC = async (collection, id1, subCollection, id2, field, data) => {
+		setIsPending(true);
+		setError(null);
+
+		try {
+			const res = await projectFirestore
+				.collection(collection)
+				.doc(id1)
+				.collection(subCollection)
+				.doc(id2)
+				.update({
+					[field]: firebase.firestore.FieldValue.arrayRemove(data)
+				});
+			// console.log(res);
+			setIsPending(false);
+			return res;
+		} catch (err) {
+			setError('could not update element in collection');
+			setIsPending(false);
+			console.log(err.message);
+		}
+	};
 
 	const updateField = async (collection, id, field) => {
 		setIsPending(true);
@@ -133,7 +158,17 @@ const useDocument = () => {
 	//   }
 	// };
 
-	return { error, isPending, addDoc, addSubDoc, addUser, updateField, addChat };
+	return {
+		error,
+		isPending,
+		addDoc,
+		addSubDoc,
+		addUser,
+		updateField,
+		addChat,
+		updateSubDoc,
+		updateFieldSubC
+	};
 };
 
 export default useDocument;
