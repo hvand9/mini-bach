@@ -85,10 +85,11 @@ const Table = (props) => {
 			<Grid item xs={12}>
 				{navIcon === 'voice' && <Voice />}
 				{navIcon === 'video' && <Video />}
-				{navIcon === 'chat' && <Chat />}
+				{navIcon === 'chat' && <Chat cafeId={cafeId} tableId={id} clickNav={clickNav} />}
 				{navIcon === 'edit' && <EditTable />}
 			</Grid>
-			{navIcon !== 'chat' && <NavTable clickNav={clickNav} navIcon={navIcon} />}
+			{navIcon !== 'chat' &&
+			navIcon !== 'edit' && <NavTable clickNav={clickNav} navIcon={navIcon} />}
 		</Grid>
 	);
 };

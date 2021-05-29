@@ -17,14 +17,19 @@ const Welcome = () => {
 	const { data, isPending, error } = useFetch('cafes');
 	const history = useHistory();
 
-	useEffect(
-		() => {
-			if (!user) {
-				history.push('/');
-			}
-		},
-		[ user, history ]
-	);
+	const checkUser = () => {
+		if (user) {
+			localStorage.setItem('userId', JSON.stringify(user.uid));
+		}
+		if (!localStorage.userId) {
+			history.push('/');
+		}
+	};
+	useEffect(() => {
+		return () => {
+			checkUser();
+		};
+	});
 
 	return (
 		<Grid container className="welcome">

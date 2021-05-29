@@ -28,21 +28,22 @@ const PublicCafe = () => {
 	const { dataQ, isPendingQ, errorQ } = useFetchQuery('cafes', 'users');
 	const { updateField } = useDocument();
 
-	useEffect(
-		() => {
-			if (!user) {
-				history.push('/');
-			}
-		},
-		[ user, history ]
-	);
+	const checkUser = () => {
+		if (!localStorage.userId) {
+			history.push('/');
+		}
+	};
+	useEffect(() => {
+		return () => {
+			checkUser();
+		};
+	});
 
 	const toggleModal = () => {
 		setShowModal(!showModal);
 	};
 
 	const handleSave = (e, id) => {
-		// console.log(id);
 		if (user) {
 			updateField('cafes', id, 'users');
 		}

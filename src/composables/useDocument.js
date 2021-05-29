@@ -32,7 +32,7 @@ const useDocument = () => {
 		if (user) {
 			try {
 				const res = await projectFirestore.collection(collection).doc(id).update({
-					users: firebase.firestore.FieldValue.arrayUnion(user.uid)
+					[field]: firebase.firestore.FieldValue.arrayUnion(user.uid)
 				});
 				// console.log(res);
 				setIsPending(false);
@@ -90,7 +90,28 @@ const useDocument = () => {
 			setIsPending(false);
 			return res;
 		} catch (err) {
-			setError('could not add doc in sub-collection');
+			setError('could not add doc in collection');
+			setIsPending(false);
+			console.log(err.message);
+		}
+	};
+
+	const addChat = async (doc, collection, collection2, collection3, id1, id2) => {
+		setIsPending(true);
+		setError(null);
+
+		try {
+			const res = await projectFirestore
+				.collection(collection)
+				.doc(id1)
+				.collection(collection2)
+				.doc(id2)
+				.collection(collection3)
+				.add(doc);
+			setIsPending(false);
+			return res;
+		} catch (err) {
+			setError('could not add doc in collection');
 			setIsPending(false);
 			console.log(err.message);
 		}
@@ -112,7 +133,7 @@ const useDocument = () => {
 	//   }
 	// };
 
-	return { error, isPending, addDoc, addSubDoc, addUser, updateField };
+	return { error, isPending, addDoc, addSubDoc, addUser, updateField, addChat };
 };
 
 export default useDocument;
