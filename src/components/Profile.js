@@ -8,7 +8,7 @@ import {
 	Select,
 
 } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import logo from '../assets/logo-brown-mobile.png';
 import Alert from '@material-ui/lab/Alert';
 import {useHistory, Link } from 'react-router-dom';
@@ -17,6 +17,7 @@ import placeholder from '../assets/placeholder2.png';
 import useStorage from '../composables/useStorage';
 import useGetUser from '../composables/useGetUser';
 import useDocument from '../composables/useDocument'
+import { UserContext } from '../composables/UserContext';
 
 import './profile.css';
 
@@ -39,15 +40,18 @@ const Profile = () => {
 	});
 	const imgTypes = [ 'image/png', 'image/jpeg' ];
 	const {addUser, isPending, error} = useDocument()
+	const [ currUser, setCurrUser ] = useContext(UserContext);
 
-	useEffect(
-		() => {
-			if (!user) {
-				history.push('/');
-			}
-		},
-		[ user, history ]
-	);
+	const checkUser = () => {
+		console.log(currUser)
+		if (!currUser.id) {
+			 history.push('/');
+		}
+	};
+	useEffect(() => {
+		const cleanup = checkUser();
+		return () => cleanup;
+	});
 
 	const handleImage = (e) => {
 		let selected = e.target.files[0];
@@ -71,6 +75,7 @@ const Profile = () => {
 				.child(file.name)
 				.getDownloadURL()
 				.then((url) => {
+					user.updateProfile({photoURL: url})
 					setData((prevData) => {
 						return {
 							...prevData,
@@ -84,6 +89,7 @@ const Profile = () => {
 				});
 		}
 	};
+	console.log(user)
 
 	const handleSelectCat = (e) => {
 		const { value, name } = e.target;
@@ -183,6 +189,12 @@ const Profile = () => {
 				publicGroups: []
 			};
 			addUser(doc, 'users', user.uid)
+			setCurrUser(prevC => {
+				return{
+					...prevC,
+					userImg: user.photoURL
+				}
+			})
 			if(!isPending && error === null){
 				history.push('/welcome')
 			}

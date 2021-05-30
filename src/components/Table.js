@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import useFetchOneSub from '../composables/useFetchOneSub';
 import useDocument from '../composables/useDocument';
 import { useHistory } from 'react-router-dom';
@@ -11,6 +11,7 @@ import Voice from './Voice';
 import Video from './Video';
 import EditTable from './EditTabel';
 import firebase from 'firebase/app';
+import { UserContext } from '../composables/UserContext';
 
 import './table.css';
 
@@ -28,17 +29,28 @@ const Table = () => {
 		id
 	);
 	const [ navIcon, setNavIcon ] = useState('voice');
+	const [ currUser ] = useContext(UserContext);
+
+	const checkUser = () => {
+		if (!currUser.id) {
+			history.push('/');
+		}
+	};
+	useEffect(() => {
+		const cleanup = checkUser();
+		return () => cleanup;
+	});
 
 	const leaveTable = () => {
-		const user = JSON.parse(localStorage.getItem('user'));
+		// const user = JSON.parse(localStorage.getItem('user'));
 		let arrayLength = [];
 		arrayLength = dataOneSub && dataOneSub.users;
 
 		const doc = {
 			numberOfUsers: arrayLength.length - 1,
 			users: firebase.firestore.FieldValue.arrayRemove({
-				imgURL: user.userImg,
-				userName: user.username
+				imgURL: currUser.userImg ? currUser.userImg : '',
+				userName: currUser.username
 			})
 		};
 		updateSubDoc(doc, cafeId, 'cafes', id, 'tables');

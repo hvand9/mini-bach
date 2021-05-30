@@ -20,7 +20,7 @@ const Voice = (props) => {
 				dataOneSub.users.map((user, i) => {
 					return (
 						<div>
-							<Grid key={user.userName + i} className="user">
+							<Grid key={user.name + i} className="user">
 								<img
 									src={user.imgURL ? user.imgURL : placeholder}
 									alt={user.name}

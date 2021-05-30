@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import useFetchOne from '../composables/useFetchOne';
 import useFetchSub from '../composables/useFetchSub';
 import { Collapse, Grid, Typography, CircularProgress, Button } from '@material-ui/core';
@@ -11,6 +11,7 @@ import { timestamp } from '../firebase/config';
 import Alert from '@material-ui/lab/Alert';
 import firebase from 'firebase/app';
 import './cafe-details.css';
+import { UserContext } from '../composables/UserContext';
 
 const CafeDetails = () => {
 	const { id } = useParams();
@@ -18,6 +19,17 @@ const CafeDetails = () => {
 	const { dataSub, isPendingSub, errorSub } = useFetchSub('cafes', id, 'tables');
 	const { addSubDoc, error, updateSubDoc, isPending } = useDocument();
 	const history = useHistory();
+	const [ currUser ] = useContext(UserContext);
+
+	const checkUser = () => {
+		if (!currUser.id) {
+			history.push('/');
+		}
+	};
+	useEffect(() => {
+		const cleanup = checkUser();
+		return () => cleanup;
+	});
 
 	const handleAddTable = () => {
 		if (dataSub) {
@@ -35,15 +47,15 @@ const CafeDetails = () => {
 
 	const handleUserEnter = (tId, limit, numUser, num, users) => {
 		if (numUser < limit) {
-			const user = JSON.parse(localStorage.getItem('user'));
+			// const user = JSON.parse(localStorage.getItem('user'));
 			let arrayLength = [];
 			arrayLength = users;
 
 			const doc = {
 				numberOfUsers: arrayLength.length + 1,
 				users: firebase.firestore.FieldValue.arrayUnion({
-					imgURL: user.userImg,
-					userName: user.username
+					imgURL: currUser.userImg ? currUser.userImg : '',
+					userName: currUser.username
 				})
 			};
 			updateSubDoc(doc, id, 'cafes', tId, 'tables');

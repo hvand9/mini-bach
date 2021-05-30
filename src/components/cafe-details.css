@@ -64,7 +64,7 @@
 .cafe-details .cafes-list .cafe .cafe-grid,
 .cafe-details .cafe .cafe-grid {
 	display: flex;
-	padding: 10px 20px;
+	padding: 5px 10px;
 	width: 100%;
 	position: relative;
 }

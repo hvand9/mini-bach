@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
-import { Grid, Typography, Button, InputAdornment } from '@material-ui/core';
+import React, { useState, useContext } from 'react';
+import { Grid, Typography, Button, InputAdornment, Collapse } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import logo from '../assets/logo-brown-mobile.png';
 import { Link, useHistory } from 'react-router-dom';
 import { TextField } from '@material-ui/core';
-import useSignup from '../composables/useSignup';
+// import useSignup from '../composables/useSignup';
+import { projectAuth } from '../firebase/config';
+import { UserContext } from '../composables/UserContext';
+
 import './signup.css';
 
 const Signup = () => {
-	const { error, signup } = useSignup();
+	// const { error, signup } = useSignup();
 	const [ displayName, setDisplayName ] = useState('');
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
@@ -16,14 +20,43 @@ const Signup = () => {
 	const [ emailError, setEmailError ] = useState(false);
 	const [ passError, setPassError ] = useState(false);
 	const [ rPassError, setRPassError ] = useState(false);
+	const [ error, setError ] = useState(null);
 	const history = useHistory();
+	const [ currUser, setCurrUser ] = useContext(UserContext);
 
 	const handlesubmit = async (e) => {
-		if (!userError && !emailError && !passError && !rPassError) {
-			await signup(email, password, displayName);
+		if (
+			!userError &&
+			!emailError &&
+			!passError &&
+			!rPassError &&
+			displayName &&
+			email &&
+			password &&
+			rPassword
+		) {
+			setError(null);
 
-			if (!error) {
+			try {
+				const res = await projectAuth.createUserWithEmailAndPassword(email, password);
+
+				if (!res) {
+					throw new Error('Could not complete the signup');
+				}
+				await res.user.updateProfile({ displayName });
+				setError(null);
+
+				setCurrUser({
+					id: res.user.uid,
+					username: displayName,
+					userImg: ''
+				});
+
 				history.push('/profile');
+				return res;
+			} catch (err) {
+				console.log(err.message);
+				setError(err.message);
 			}
 		}
 	};
@@ -137,7 +170,11 @@ const Signup = () => {
 					}}
 				/>
 			</Grid>
-
+			<Grid item xs={12} align="center">
+				<Collapse in={error !== null}>
+					<Alert severity="error">{error}</Alert>
+				</Collapse>
+			</Grid>
 			<Grid item xs={12} className="bttn-box">
 				<Button variant="contained" onClick={handlesubmit} className="btn">
 					Sign up

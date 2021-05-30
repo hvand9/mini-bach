@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
 	Grid,
 	Typography,
@@ -13,6 +13,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { TextField } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { projectAuth } from '../firebase/config';
+import { UserContext } from '../composables/UserContext';
 import './signup.css';
 
 const Login = () => {
@@ -22,6 +23,7 @@ const Login = () => {
 	const [ emailError, setEmailError ] = useState(false);
 	const [ passError, setPassError ] = useState(false);
 	const [ error, setError ] = useState(null);
+	const [ currUser, setCurrUser ] = useContext(UserContext);
 	const history = useHistory();
 
 	const handlesubmit = async () => {
@@ -29,6 +31,14 @@ const Login = () => {
 			try {
 				const res = await projectAuth.signInWithEmailAndPassword(email, password);
 				setError(null);
+				// console.log(res);
+
+				setCurrUser({
+					id: res.user.uid,
+					username: res.user.displayName,
+					userImg: res.user.photoURL ? res.user.photoURL : ''
+				});
+
 				// console.log('sucess');
 				history.push('/welcome');
 				return res;
