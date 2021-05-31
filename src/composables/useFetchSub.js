@@ -10,31 +10,36 @@ const useFetchSub = (collection, id, subCollection) => {
 		() => {
 			const abortCont = new AbortController();
 
-			projectFirestore.collection(collection).doc(id).collection(subCollection, { signal: abortCont.signal }).onSnapshot(
-				(snap) => {
-					let results = [];
-					snap.docs.forEach((doc) => {
-						results.push({ ...doc.data(), id: doc.id });
-					});
-					setDataSub(results);
-					setErrorSub(null);
-					setIsPendingSub(false);
-				},
-				(err) => {
-					if (err.name === 'AbortError') {
-						console.log('fetch aborted');
-					} else {
-						setDataSub(null);
-						setErrorSub(err.message);
+			projectFirestore
+				.collection(collection)
+				.doc(id)
+				.collection(subCollection, { signal: abortCont.signal })
+				.orderBy('createdAt')
+				.onSnapshot(
+					(snap) => {
+						let results = [];
+						snap.docs.forEach((doc) => {
+							results.push({ ...doc.data(), id: doc.id });
+						});
+						setDataSub(results);
+						setErrorSub(null);
 						setIsPendingSub(false);
-						console.log(err.message);
+					},
+					(err) => {
+						if (err.name === 'AbortError') {
+							console.log('fetch aborted');
+						} else {
+							setDataSub(null);
+							setErrorSub(err.message);
+							setIsPendingSub(false);
+							console.log(err.message);
+						}
 					}
-				}
-			);
+				);
 
 			return () => abortCont.abort();
 		},
-		[ collection ]
+		[ collection, subCollection, id ]
 	);
 
 	return { dataSub, isPendingSub, errorSub };

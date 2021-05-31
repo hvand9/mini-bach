@@ -30,6 +30,7 @@
 	font-size: var(--font-size-title);
 	padding-bottom: 10%;
 	padding-top: 20%;
+	color: var(--color-dark-brown);
 }
 
 /* ICONS FACE GOOGLE */
@@ -125,4 +126,8 @@
 }
 .Sign .MuiCheckbox-colorPrimary.Mui-checked path {
 	fill: var(--color-blue);
+}
+
+.Sign .Mui-error {
+	font-weight: 600;
 }

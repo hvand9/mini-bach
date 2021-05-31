@@ -10,7 +10,9 @@ import PublicCafe from './components/PublicCafe';
 import Welcome from './components/Welcome';
 import CafeDetails from './components/CafeDetails';
 import Table from './components/Table';
-import ProfileInfo from './components/ProfileInfo'; 
+import ProfileInfo from './components/ProfileInfo';
+import NotFound from './components/NotFound';
+import { UserProvider } from './composables/UserContext';
 
 const THEME = createMuiTheme({
 	typography: {
@@ -25,39 +27,42 @@ const THEME = createMuiTheme({
 function App() {
 	return (
 		<ThemeProvider theme={THEME}>
-			<Router>
-				<div className="App">
-					<Switch>
-						<Route exact path="/">
-							<Home />
-						</Route>
-						<Route path="/welcome">
-							<Welcome />
-						</Route>
-						<Route path="/login">
-							<Login />
-						</Route>
-						<Route path="/signup">
-							<Signup />
-						</Route>
-						<Route path="/profile">
-							<Profile />
-						</Route>
-						<Route path="/public-cafe">
-							<PublicCafe />
-						</Route>
-						<Route path="/cafe-details/:id">
-							<CafeDetails />
-						</Route>
-						<Route path="/tables/:id">
-							<Table />
-						</Route>
-						<Route path="/profileinfo">
-							<ProfileInfo />
-						</Route>
-					</Switch>
-				</div>
-			</Router>
+			<UserProvider>
+				<Router>
+					<div className="App">
+						<Switch>
+							<Route exact path="/">
+								<Home />
+							</Route>
+							<Route path="/welcome">
+								<Welcome />
+							</Route>
+							<Route path="/login">
+								<Login />
+							</Route>
+							<Route path="/signup">
+								<Signup />
+							</Route>
+							<Route path="/profile">
+								<Profile />
+							</Route>
+							<Route path="/public-cafe">
+								<PublicCafe />
+							</Route>
+							<Route path="/cafe-details/:id">
+								<CafeDetails />
+							</Route>
+							<Route path="/tables/:id">
+								<Table />
+							</Route>
+							<Route path="/profileinfo">
+								<ProfileInfo />
+							</Route>
+							<Route exact path="*" component={NotFound} />
+						</Switch>
+					</div>
+				</Router>
+			</UserProvider>
 		</ThemeProvider>
 	);
 }

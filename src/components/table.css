@@ -1,0 +1,89 @@
+@import url(../variables.css);
+
+.table-details {
+	background-image: url(../assets/background-brown.png);
+	background-size: cover;
+	background-attachment: fixed;
+	width: 100%;
+	min-height: 100vh;
+	max-width: 100%;
+}
+.table-details.MuiGrid-container {
+	align-content: flex-start;
+}
+.table-details .video-place {
+	height: 240px;
+}
+
+.table-details .video-place img {
+	width: 100%;
+	height: 240px;
+	object-fit: cover;
+	object-position: center;
+}
+.table-details .header {
+	position: absolute;
+	height: 240px;
+}
+.table-details .header h2 {
+	font-size: var(--font-size-subtitle18);
+	color: var(--color-grey);
+	font-weight: 600;
+	position: fixed;
+	top: 0;
+	right: 0;
+	padding: 20px;
+}
+.table-details .header .back {
+	font-size: 25px;
+	color: var(--color-grey);
+	position: fixed;
+	padding: 10px 20px;
+}
+.table-details .header .heart {
+	position: fixed;
+	color: var(--color-orange);
+	font-size: 25px;
+	top: 180px;
+	padding: 10px 20px;
+}
+
+/* table bar */
+.table-details .table-bar div {
+	display: flex;
+	background-color: var(--color-blue);
+	justify-content: space-between;
+	padding: 6px;
+	color: var(--color-grey);
+}
+.table-details .table-bar h3 {
+	font-size: var(--font-size-subtitle18);
+	color: var(--color-grey);
+	align-self: center;
+	padding-left: 20px;
+}
+.table-details .table-bar .edit-btn {
+	color: var(--color-grey);
+}
+.table-details .table-bar .edit-btn i {
+	font-size: 20px;
+}
+.table-details .table-bar .edit-btn p {
+	margin: 0;
+	padding: 0 20px 0 3px;
+	font-size: var(--font-size-small10);
+	text-transform: capitalize;
+}
+.table-details .table-bar .nums {
+	background-color: var(--color-grey);
+	color: var(--color-blue);
+	font-size: var(--font-size-text12);
+	font-weight: 700;
+	border-radius: 50%;
+	align-self: center;
+	padding: 5px;
+}
+
+.table-details .table-bar .current i {
+	color: var(--color-light-orange);
+}

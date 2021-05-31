@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import useFetch from '../composables/useFetch';
 import logo from '../assets/logo-grey-mobile-side.png';
 import plus from '../assets/plus-icon.png';
@@ -17,6 +17,7 @@ import CreateCafe from './CreateCafe';
 import useGetUser from '../composables/useGetUser';
 import useFetchQuery from '../composables/useFetchQuery';
 import useDocument from '../composables/useDocument';
+import { UserContext } from '../composables/UserContext';
 
 const PublicCafe = () => {
 	const { data, isPending, error } = useFetch('cafes');
@@ -27,22 +28,23 @@ const PublicCafe = () => {
 	const history = useHistory();
 	const { dataQ, isPendingQ, errorQ } = useFetchQuery('cafes', 'users');
 	const { updateField } = useDocument();
+	const [ currUser ] = useContext(UserContext);
 
-	useEffect(
-		() => {
-			if (!user) {
-				history.push('/');
-			}
-		},
-		[ user, history ]
-	);
+	const checkUser = () => {
+		if (!currUser.id) {
+			history.push('/');
+		}
+	};
+	useEffect(() => {
+		const cleanup = checkUser();
+		return () => cleanup;
+	});
 
 	const toggleModal = () => {
 		setShowModal(!showModal);
 	};
 
 	const handleSave = (e, id) => {
-		// console.log(id);
 		if (user) {
 			updateField('cafes', id, 'users');
 		}
@@ -73,8 +75,8 @@ const PublicCafe = () => {
 				/>
 			</Grid>
 			<Grid item xs={12} className="show-btns">
-				<Button onClick={() => setShowAll(true)}>ALL</Button>
-				<Button onClick={() => setShowAll(false)}>Saved</Button>
+				<Button onClick={() => setShowAll(true)}>All Cafés</Button>
+				<Button onClick={() => setShowAll(false)}>Favorites</Button>
 			</Grid>
 			{showAll && (
 				<Grid item xs={12} className="cafes-list">
@@ -96,15 +98,11 @@ const PublicCafe = () => {
 								})
 								.map((cafes) => {
 									return (
-										<div className="cafe btn">
+										<div className="cafe btn" key={cafes.id}>
 											<Button onClick={(e) => handleSave(e, cafes.id)}>
-												<i className="fas fa-save" />
+												<i className="fas fa-heart" />
 											</Button>
-											<Link
-												className="btn"
-												to={`/cafe-details/${cafes.id}`}
-												key={cafes.id}
-											>
+											<Link className="btn" to={`/cafe-details/${cafes.id}`}>
 												<Grid item xs={12} className="cafe-grid">
 													<img src={cafes.imageURL} alt={cafes.name} />
 													<div>

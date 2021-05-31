@@ -51,6 +51,7 @@
 	border-radius: 50%;
 	background-color: var(--color-cream-orange);
 	object-fit: cover;
+	object-position: center;
 }
 .modal-create .picture-box .choose-file {
 	text-transform: capitalize;
@@ -161,26 +162,4 @@
 	font-weight: 700;
 	padding-top: 5px;
 	margin-bottom: 20px;
-}
-
-/* SCROLL BAR */
-/* width */
-::-webkit-scrollbar {
-	width: 7px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-	background: transparent;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-	background: var(--color-light-orange);
-	border-radius: 20px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-	background: var(--color-orange);
 }

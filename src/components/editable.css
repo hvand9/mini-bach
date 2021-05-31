@@ -1,0 +1,25 @@
+.edit {
+	color: var(--color-grey);
+	padding: 20px;
+}
+.edit h6 {
+	font-size: var(--font-size-subtitle18);
+	padding-bottom: 15px;
+}
+.edit button p {
+	font-size: var(--font-size-text);
+	color: var(--color-grey);
+	text-transform: capitalize;
+}
+.edit button {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0;
+	color: var(--color-grey);
+}
+.edit .back-arrow i {
+	font-size: 25px;
+	padding-top: 10px;
+}

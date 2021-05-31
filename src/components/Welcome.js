@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import logo from '../assets/logo-grey-mobile-side.png';
 import family from '../assets/family-group-500.png';
 import { Grid, Typography, CircularProgress, Button } from '@material-ui/core';
-import useGetUser from '../composables/useGetUser';
 import useFetch from '../composables/useFetch';
 import { useHistory, Link } from 'react-router-dom';
 import './welcome.css';
@@ -10,21 +9,24 @@ import Nav from './Nav';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import '../../node_modules/swiper/swiper-bundle.css';
 import SwiperCore, { Navigation } from 'swiper/core';
+import { UserContext } from '../composables/UserContext';
 SwiperCore.use([ Navigation ]);
 
 const Welcome = () => {
-	const { user } = useGetUser();
 	const { data, isPending, error } = useFetch('cafes');
+	const [ currUser ] = useContext(UserContext);
 	const history = useHistory();
 
-	useEffect(
-		() => {
-			if (!user) {
-				history.push('/');
-			}
-		},
-		[ user, history ]
-	);
+	const checkUser = () => {
+		// console.log(currUser);
+		if (!currUser.id) {
+			history.push('/');
+		}
+	};
+	useEffect(() => {
+		const cleanup = checkUser();
+		return () => cleanup;
+	});
 
 	return (
 		<Grid container className="welcome">

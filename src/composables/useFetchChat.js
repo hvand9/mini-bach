@@ -10,31 +10,38 @@ const useFetchChat = (collection, id, subCollection, idTable, chatCollection) =>
 		() => {
 			const abortCont = new AbortController();
 
-			projectFirestore.collection(collection).doc(id).collection(subCollection).doc(idTable).collection(chatCollection, { signal: abortCont.signal }).onSnapshot(
-				(snap) => {
-					let results = [];
-					snap.docs.forEach((doc) => {
-						results.push({ ...doc.data(), id: doc.id });
-					});
-					setDataChat(results);
-					setErrorChat(null);
-					setIsPendingChat(false);
-				},
-				(err) => {
-					if (err.name === 'AbortError') {
-						console.log('fetch aborted');
-					} else {
-						setDataChat(null);
-						setErrorChat(err.message);
+			projectFirestore
+				.collection(collection)
+				.doc(id)
+				.collection(subCollection)
+				.doc(idTable)
+				.collection(chatCollection, { signal: abortCont.signal })
+				.orderBy('createdAt')
+				.onSnapshot(
+					(snap) => {
+						let results = [];
+						snap.docs.forEach((doc) => {
+							doc.data().createdAt && results.push({ ...doc.data(), id: doc.id });
+						});
+						setDataChat(results);
+						setErrorChat(null);
 						setIsPendingChat(false);
-						console.log(err.message);
+					},
+					(err) => {
+						if (err.name === 'AbortError') {
+							console.log('fetch aborted');
+						} else {
+							setDataChat(null);
+							setErrorChat(err.message);
+							setIsPendingChat(false);
+							console.log(err.message);
+						}
 					}
-				}
-			);
+				);
 
 			return () => abortCont.abort();
 		},
-		[ collection ]
+		[ collection, chatCollection, id, idTable, subCollection ]
 	);
 
 	return { dataChat, isPendingChat, errorChat };
