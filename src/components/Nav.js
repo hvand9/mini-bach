@@ -75,7 +75,7 @@ const Nav = (props) => {
 						Events
 					</Typography>
 				</Link>
-				<Link to={'/welcome'} className="nav-link btn">
+				<Link to={'/profile-info'} className="nav-link btn">
 					<svg
 						className="icons"
 						width="22"

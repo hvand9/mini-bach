@@ -55,7 +55,7 @@ function App() {
 							<Route path="/tables/:id">
 								<Table />
 							</Route>
-							<Route path="/profileinfo">
+							<Route path="/profile-info">
 								<ProfileInfo />
 							</Route>
 							<Route exact path="*" component={NotFound} />

@@ -36,7 +36,8 @@ const Login = () => {
 				setCurrUser({
 					id: res.user.uid,
 					username: res.user.displayName,
-					userImg: res.user.photoURL ? res.user.photoURL : ''
+					userImg: res.user.photoURL ? res.user.photoURL : '',
+					email: res.user.email
 				});
 
 				// console.log('sucess');

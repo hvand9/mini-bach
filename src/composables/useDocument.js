@@ -22,7 +22,7 @@ const useDocument = () => {
 			setIsPending(false);
 			return res;
 		} catch (err) {
-			console.log(err.message);
+			// console.log(err.message);
 			setIsPending(false);
 			setError('could not update document');
 		}
@@ -47,7 +47,7 @@ const useDocument = () => {
 		} catch (err) {
 			setError('could not update element in collection');
 			setIsPending(false);
-			console.log(err.message);
+			// console.log(err.message);
 		}
 	};
 
@@ -65,7 +65,7 @@ const useDocument = () => {
 			} catch (err) {
 				setError('could not update element in collection');
 				setIsPending(false);
-				console.log(err.message);
+				// console.log(err.message);
 			}
 		}
 	};
@@ -76,13 +76,13 @@ const useDocument = () => {
 
 		try {
 			const res = await projectFirestore.collection(collection).doc(id).set(doc);
-			console.log(res);
+			// console.log(res);
 			setIsPending(false);
 			return res;
 		} catch (err) {
 			setError('could not add doc in collection');
 			setIsPending(false);
-			console.log(err.message);
+			// console.log(err.message);
 		}
 	};
 
@@ -98,7 +98,7 @@ const useDocument = () => {
 		} catch (err) {
 			setError('could not add doc in collection');
 			setIsPending(false);
-			console.log(err.message);
+			// console.log(err.message);
 		}
 	};
 
@@ -117,7 +117,7 @@ const useDocument = () => {
 		} catch (err) {
 			setError('could not add doc in collection');
 			setIsPending(false);
-			console.log(err.message);
+			// console.log(err.message);
 		}
 	};
 
@@ -138,25 +138,9 @@ const useDocument = () => {
 		} catch (err) {
 			setError('could not add doc in collection');
 			setIsPending(false);
-			console.log(err.message);
+			// console.log(err.message);
 		}
 	};
-
-	// const deleteDoc = async (id) => {
-	//   const doc = projectFirestore.collection(collection).doc(id);
-	//   setIsPending(true);
-	//   setError(null);
-
-	//   try {
-	//     const res = await doc.delete();
-	//     setIsPending(false);
-	//     return res;
-	//   } catch (err) {
-	//     console.log(err.message);
-	//     setIsPending(false);
-	//     setError("could not delete the document");
-	//   }
-	// };
 
 	return {
 		error,

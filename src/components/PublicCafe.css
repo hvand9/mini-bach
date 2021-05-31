@@ -73,6 +73,7 @@
 .public-cafe .cafes-list .grid {
 	display: grid;
 	row-gap: 20px;
+	padding-bottom: 50px;
 }
 .public-cafe .cafes-list .cafe {
 	background-color: var(--color-blue);

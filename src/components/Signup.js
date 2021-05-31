@@ -49,7 +49,8 @@ const Signup = () => {
 				setCurrUser({
 					id: res.user.uid,
 					username: displayName,
-					userImg: ''
+					userImg: '',
+					email: email
 				});
 
 				history.push('/profile');

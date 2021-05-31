@@ -8,7 +8,8 @@ export const UserProvider = (props) => {
 	const [ currUser, setCurrUser ] = useState({
 		id: '',
 		username: '',
-		userImg: ''
+		userImg: '',
+		email: ''
 	});
 
 	return (

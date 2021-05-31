@@ -43,7 +43,7 @@ const Profile = () => {
 	const [ currUser, setCurrUser ] = useContext(UserContext);
 
 	const checkUser = () => {
-		console.log(currUser)
+		// console.log(currUser)
 		if (!currUser.id) {
 			 history.push('/');
 		}
@@ -89,7 +89,6 @@ const Profile = () => {
 				});
 		}
 	};
-	console.log(user)
 
 	const handleSelectCat = (e) => {
 		const { value, name } = e.target;

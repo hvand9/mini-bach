@@ -2,13 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import useFetch from '../composables/useFetch';
 import logo from '../assets/logo-grey-mobile-side.png';
 import plus from '../assets/plus-icon.png';
+import { Alert } from '@material-ui/lab';
 import {
 	Grid,
 	Typography,
 	CircularProgress,
 	Button,
 	TextField,
-	InputAdornment
+	InputAdornment,
+	Collapse
 } from '@material-ui/core';
 import Nav from './Nav';
 import { Link, useHistory } from 'react-router-dom';
@@ -27,8 +29,9 @@ const PublicCafe = () => {
 	const { user } = useGetUser();
 	const history = useHistory();
 	const { dataQ, isPendingQ, errorQ } = useFetchQuery('cafes', 'users');
-	const { updateField } = useDocument();
+	const { updateField, error: upError, isPending: upPending } = useDocument();
 	const [ currUser ] = useContext(UserContext);
+	const [ favMess, setFavMess ] = useState(null);
 
 	const checkUser = () => {
 		if (!currUser.id) {
@@ -44,9 +47,12 @@ const PublicCafe = () => {
 		setShowModal(!showModal);
 	};
 
-	const handleSave = (e, id) => {
+	const handleSave = (e, id, cafeName) => {
 		if (user) {
 			updateField('cafes', id, 'users');
+			if (!upPending) {
+				setFavMess(upError ? upError : `You have successfully added ${cafeName}!`);
+			}
 		}
 	};
 
@@ -74,6 +80,18 @@ const PublicCafe = () => {
 					}}
 				/>
 			</Grid>
+			<Grid item xs={12} align="center">
+				<Collapse in={favMess !== null}>
+					<Alert
+						severity={upError ? 'error' : 'success'}
+						onClose={() => {
+							setFavMess(null);
+						}}
+					>
+						{favMess}
+					</Alert>
+				</Collapse>
+			</Grid>
 			<Grid item xs={12} className="show-btns">
 				<Button onClick={() => setShowAll(true)}>All Cafés</Button>
 				<Button onClick={() => setShowAll(false)}>Favorites</Button>
@@ -99,7 +117,9 @@ const PublicCafe = () => {
 								.map((cafes) => {
 									return (
 										<div className="cafe btn" key={cafes.id}>
-											<Button onClick={(e) => handleSave(e, cafes.id)}>
+											<Button
+												onClick={(e) => handleSave(e, cafes.id, cafes.name)}
+											>
 												<i className="fas fa-heart" />
 											</Button>
 											<Link className="btn" to={`/cafe-details/${cafes.id}`}>
