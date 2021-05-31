@@ -49,6 +49,7 @@
 	font-size: var(--font-size-subtitle25);
 	font-weight: 600;
 	text-transform: capitalize;
+	color: var(--color-dark-brown);
 }
 .ProfileInfo .user-header p {
 	color: var(--color-dark-brown);

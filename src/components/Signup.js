@@ -4,7 +4,6 @@ import Alert from '@material-ui/lab/Alert';
 import logo from '../assets/logo-brown-mobile.png';
 import { Link, useHistory } from 'react-router-dom';
 import { TextField } from '@material-ui/core';
-// import useSignup from '../composables/useSignup';
 import { projectAuth } from '../firebase/config';
 import { UserContext } from '../composables/UserContext';
 
