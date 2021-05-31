@@ -7,7 +7,7 @@ import { UserContext } from '../composables/UserContext';
 import './home.css';
 
 const Home = () => {
-	const [ currUser, setCurrUser ] = useContext(UserContext);
+	const [ currUser ] = useContext(UserContext);
 	const history = useHistory();
 
 	useEffect(() => {
