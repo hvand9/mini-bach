@@ -1,0 +1,32 @@
+@import url(../variables.css);
+
+
+.ProfileInfo {
+	background-image: url(../assets/background-main-big.png);
+	background-size: cover;
+	background-attachment: fixed;
+	width: 100%;
+	height: 100vh;
+}
+.ProfileInfo.MuiGrid-container {
+	align-content: flex-start;
+}
+
+/* header */
+.ProfileInfo .header {
+	height: fit-content;
+	display: flex;
+	padding: 10px;
+}
+.ProfileInfo .header h4 {
+	font-family: var(--display-font);
+	color: var(--color-grey);
+	padding-left: 20px;
+	font-size: 30px;
+}
+.ProfileInfo .header img {
+	width: auto;
+}
+.ProfileInfo img {
+	width: 60px;
+}

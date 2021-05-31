@@ -10,6 +10,7 @@ import PublicCafe from './components/PublicCafe';
 import Welcome from './components/Welcome';
 import CafeDetails from './components/CafeDetails';
 import Table from './components/Table';
+import ProfileInfo from './components/ProfileInfo'; 
 
 const THEME = createMuiTheme({
 	typography: {
@@ -50,6 +51,9 @@ function App() {
 						</Route>
 						<Route path="/tables/:id">
 							<Table />
+						</Route>
+						<Route path="/profileinfo">
+							<ProfileInfo />
 						</Route>
 					</Switch>
 				</div>
