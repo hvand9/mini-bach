@@ -43,8 +43,7 @@ const Profile = () => {
 	const [ currUser, setCurrUser ] = useContext(UserContext);
 
 	const checkUser = () => {
-		// console.log(currUser)
-		if (!currUser.id) {
+		if (!localStorage.getItem('id')) {
 			 history.push('/');
 		}
 	};

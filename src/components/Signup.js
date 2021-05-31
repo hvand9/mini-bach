@@ -52,11 +52,11 @@ const Signup = () => {
 					userImg: '',
 					email: email
 				});
-
+				localStorage.setItem('id', res.user.uid);
 				history.push('/profile');
 				return res;
 			} catch (err) {
-				console.log(err.message);
+				// console.log(err.message);
 				setError(err.message);
 			}
 		}

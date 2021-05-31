@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import useFetch from '../composables/useFetch';
 import logo from '../assets/logo-grey-mobile-side.png';
 import plus from '../assets/plus-icon.png';
@@ -19,7 +19,6 @@ import CreateCafe from './CreateCafe';
 import useGetUser from '../composables/useGetUser';
 import useFetchQuery from '../composables/useFetchQuery';
 import useDocument from '../composables/useDocument';
-import { UserContext } from '../composables/UserContext';
 
 const PublicCafe = () => {
 	const { data, isPending, error } = useFetch('cafes');
@@ -30,11 +29,10 @@ const PublicCafe = () => {
 	const history = useHistory();
 	const { dataQ, isPendingQ, errorQ } = useFetchQuery('cafes', 'users');
 	const { updateField, error: upError, isPending: upPending } = useDocument();
-	const [ currUser ] = useContext(UserContext);
 	const [ favMess, setFavMess ] = useState(null);
 
 	const checkUser = () => {
-		if (!currUser.id) {
+		if (!localStorage.getItem('id')) {
 			history.push('/');
 		}
 	};

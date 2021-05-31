@@ -1,21 +1,22 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import logo from '../assets/logo-grey.png';
 import illustration from '../assets/illustration.png';
 import { Grid, Typography, Button } from '@material-ui/core';
-import { UserContext } from '../composables/UserContext';
 import './home.css';
 
 const Home = () => {
-	const [ currUser ] = useContext(UserContext);
 	const history = useHistory();
 
-	useEffect(() => {
-		if (currUser) {
-		}
-	});
+	useEffect(
+		() => {
+			if (localStorage.getItem('id')) {
+				history.push('/welcome');
+			}
+		},
+		[ history ]
+	);
 
-	console.log(currUser);
 	return (
 		<Grid container className="Home">
 			<Grid item xs={12}>

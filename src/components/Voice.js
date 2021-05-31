@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Grid, Typography, CircularProgress } from '@material-ui/core';
 import useFetchOneSub from '../composables/useFetchOneSub';
 import placeholder from '../assets/placeholder2.png';
+import { UserContext } from '../composables/UserContext';
 import './voice.css';
 
 const Voice = (props) => {
@@ -11,6 +12,7 @@ const Voice = (props) => {
 		'tables',
 		props.tableId
 	);
+	const [ currUser, setCurrUser ] = useContext(UserContext);
 
 	return (
 		<Grid item xs={12} className="voice">
@@ -19,8 +21,8 @@ const Voice = (props) => {
 			{dataOneSub &&
 				dataOneSub.users.map((user, i) => {
 					return (
-						<div>
-							<Grid key={user.imgURL} className="user">
+						<div key={currUser.id}>
+							<Grid className="user">
 								<img
 									src={user.imgURL ? user.imgURL : placeholder}
 									alt={user.name}
@@ -36,16 +38,3 @@ const Voice = (props) => {
 };
 
 export default Voice;
-// {/*	{dataOneSub &&
-// 	dataOneSub.map((user, i) => {
-// 		console.log(user);
-// 		return (
-// 			<div>
-// 				<Grid key={user.userName + i} className="user">
-// 					<img src={user.imgURL} alt={user.name} />
-// 					<Typography>{user.userName}</Typography>
-// 				</Grid>
-// 				<hr />
-// 			</div>
-// 		);
-// 	})} */}

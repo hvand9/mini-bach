@@ -9,12 +9,16 @@
 .welcome.MuiGrid-container {
 	align-content: flex-start;
 }
-.welcome h4 {
+.welcome h1 {
 	font-family: var(--display-font);
 	font-weight: bolder;
 	color: var(--color-grey);
 	width: 50%;
 	margin: 0 auto 15% auto;
+	font-size: var(--font-size-title);
+}
+.welcome h1 span {
+	text-transform: capitalize;
 }
 .welcome h6 {
 	color: var(--color-dark-brown);

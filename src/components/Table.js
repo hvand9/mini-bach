@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import useFetchOneSub from '../composables/useFetchOneSub';
 import useDocument from '../composables/useDocument';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Grid, Typography, CircularProgress, Button } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import videoImage from '../assets/musician-celebrating-jazz-day.jpg';
@@ -16,12 +16,11 @@ import { UserContext } from '../composables/UserContext';
 import './table.css';
 
 const Table = () => {
-	const cafeName = localStorage.getItem('cafeName');
-	const cafeId = localStorage.getItem('cafeId');
-	const tableNum = localStorage.getItem('tableNum');
+	const cafeName = localStorage.getItem('cafeName') ? localStorage.getItem('cafeName') : '';
+	const cafeId = localStorage.getItem('cafeId') ? localStorage.getItem('cafeId') : '0';
+	const tableNum = localStorage.getItem('tableNum') ? localStorage.getItem('tableNum') : '';
 	const { id } = useParams();
 	const history = useHistory();
-	const location = useLocation();
 	const { updateSubDoc, error, isPending } = useDocument();
 	const { dataOneSub, errorOneSub, isLoadingOneSub } = useFetchOneSub(
 		'cafes',
@@ -33,14 +32,12 @@ const Table = () => {
 	const [ currUser ] = useContext(UserContext);
 
 	const checkUser = () => {
-		if (!currUser.id) {
+		if (!localStorage.getItem('id')) {
 			history.push('/');
 		}
 	};
 	useEffect(() => {
-		const cleanup = checkUser();
-
-		return () => cleanup;
+		checkUser();
 	});
 
 	const leaveTable = () => {
@@ -60,8 +57,6 @@ const Table = () => {
 			history.push(`/cafe-details/${cafeId}`);
 		}
 	};
-
-	const checkUrl = () => {};
 
 	const clickNav = (value) => {
 		setNavIcon(value);

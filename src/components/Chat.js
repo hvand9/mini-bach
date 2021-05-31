@@ -75,7 +75,7 @@ const Chat = (props) => {
 					})}
 				<div ref={endMsgBoxRef} className="scroll-div" />
 			</Grid>
-			<Grid item xs={12} class="chat-control">
+			<Grid item xs={12} className="chat-control">
 				<Button onClick={() => props.clickNav('voice')}>
 					<i className="fas fa-chevron-left" />
 				</Button>

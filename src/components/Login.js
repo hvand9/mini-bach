@@ -39,7 +39,8 @@ const Login = () => {
 					userImg: res.user.photoURL ? res.user.photoURL : '',
 					email: res.user.email
 				});
-
+				localStorage.setItem('id', res.user.uid);
+				console.log(res);
 				// console.log('sucess');
 				history.push('/welcome');
 				return res;

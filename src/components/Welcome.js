@@ -18,8 +18,7 @@ const Welcome = () => {
 	const history = useHistory();
 
 	const checkUser = () => {
-		// console.log(currUser);
-		if (!currUser.id) {
+		if (!localStorage.getItem('id')) {
 			history.push('/');
 		}
 	};
@@ -34,7 +33,10 @@ const Welcome = () => {
 				<img src={logo} alt="logo" />
 			</Grid>
 			<Grid item xs={12}>
-				<Typography variant="h4">Welcome, username!</Typography>
+				<Typography variant="h1">
+					Welcome, <br />
+					<span>{currUser.username}</span>!
+				</Typography>
 			</Grid>
 			<Grid item xs={12} className="slider">
 				<Typography variant="subtitle1">Private Cafés</Typography>

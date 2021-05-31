@@ -22,7 +22,7 @@ const CafeDetails = () => {
 	const [ currUser ] = useContext(UserContext);
 
 	const checkUser = () => {
-		if (!currUser.id) {
+		if (!localStorage.getItem('id')) {
 			history.push('/');
 		}
 	};
