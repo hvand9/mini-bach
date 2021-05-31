@@ -58,7 +58,7 @@ function App() {
 							<Route path="/profile-info">
 								<ProfileInfo />
 							</Route>
-							<Route exact path="*" component={NotFound} />
+							<Route path="*" component={NotFound} />
 						</Switch>
 					</div>
 				</Router>
