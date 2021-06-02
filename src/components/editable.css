@@ -23,3 +23,8 @@
 	font-size: 25px;
 	padding-top: 10px;
 }
+.edit hr {
+	background-color: var(--color-grey);
+	border-color: var(--color-grey);
+	border-width: 1px;
+}
