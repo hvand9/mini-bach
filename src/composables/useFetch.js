@@ -22,12 +22,12 @@ const useFetch = (collection) => {
 				},
 				(err) => {
 					if (err.name === 'AbortError') {
-						console.log('fetch aborted');
+						// console.log('fetch aborted');
 					} else {
 						setData(null);
 						setError(err.message);
 						setIsPending(false);
-						console.log(err.message);
+						// console.log(err.message);
 					}
 				}
 			);

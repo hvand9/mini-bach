@@ -57,7 +57,7 @@ const EditTable = (props) => {
 				<hr />
 			</div>
 			<Button className="back-arrow" onClick={() => props.clickNav('voice')}>
-				<i class="fas fa-chevron-left" />
+				<i className="fas fa-chevron-left" />
 			</Button>
 		</Grid>
 	);

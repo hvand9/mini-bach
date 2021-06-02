@@ -27,12 +27,12 @@ const useFetchQuery = (collection, field) => {
 						},
 						(err) => {
 							if (err.name === 'AbortError') {
-								console.log('fetch aborted');
+								// console.log('fetch aborted');
 							} else {
 								setDataQ(null);
 								setErrorQ(err.message);
 								setIsPendingQ(false);
-								console.log(err.message);
+								// console.log(err.message);
 							}
 						}
 					);

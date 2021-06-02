@@ -25,12 +25,12 @@ const useFetchOneSub = (collection, id, subCollection, subId) => {
 					},
 					(err) => {
 						if (err.name === 'AbortError') {
-							console.log('fetch aborted');
+							// console.log('fetch aborted');
 						} else {
 							setData(null);
 							setErrorOne(err.message);
 							setIsLoading(false);
-							console.log(err.message);
+							// console.log(err.message);
 						}
 					}
 				);

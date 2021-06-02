@@ -27,12 +27,12 @@ const useFetchSub = (collection, id, subCollection) => {
 					},
 					(err) => {
 						if (err.name === 'AbortError') {
-							console.log('fetch aborted');
+							// console.log('fetch aborted');
 						} else {
 							setDataSub(null);
 							setErrorSub(err.message);
 							setIsPendingSub(false);
-							console.log(err.message);
+							// console.log(err.message);
 						}
 					}
 				);

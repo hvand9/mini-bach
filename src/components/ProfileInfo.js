@@ -39,7 +39,7 @@ const ProfileInfo = () => {
 
 			history.push('/');
 		} catch (err) {
-			console.log(err.message);
+			// console.log(err.message);
 			setError(err.message);
 		}
 	};

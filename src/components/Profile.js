@@ -183,8 +183,7 @@ const Profile = () => {
 				interests: data.interests,
 				languages: data.languages,
 				picturePath: data.imagePath,
-				pictureURL: url,
-				publicGroups: []
+				pictureURL: url
 			};
 			addUser(doc, 'users', user.uid)
 			setCurrUser(prevC => {

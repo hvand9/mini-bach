@@ -83,7 +83,9 @@
 	align-self: center;
 	padding: 5px;
 }
-
 .table-details .table-bar .current i {
+	color: var(--color-light-orange);
+}
+.table-details .table-bar .current {
 	color: var(--color-light-orange);
 }

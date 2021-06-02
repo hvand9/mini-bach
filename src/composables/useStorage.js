@@ -9,7 +9,6 @@ const useStorage = (path, type) => {
 	const { user } = useGetUser();
 
 	const uploadImage = async (file) => {
-		console.log(user);
 		let storageRef;
 		if (type === 'user') {
 			storageRef = projectStorage.ref(path + '/' + user.uid).child(file.name);
@@ -21,9 +20,9 @@ const useStorage = (path, type) => {
 			const res = await storageRef.put(file);
 			setUrl(await res.ref.getDownloadURL());
 			setLoading(false);
-			console.log(res);
+			// console.log(res);
 		} catch (err) {
-			console.log(err.message);
+			// console.log(err.message);
 			setErrorS(err.message);
 		}
 	};

@@ -28,7 +28,7 @@ const Home = () => {
 			</Grid>
 			<Grid item xs={12}>
 				<Button variant="contained" to={'/login'} component={Link} className="btn">
-					Sing in
+					Login
 				</Button>
 			</Grid>
 			<Grid item xs={12} className="btn-box">

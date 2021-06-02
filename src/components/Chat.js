@@ -41,7 +41,7 @@ const Chat = (props) => {
 					endMsgBoxRef.current.scrollIntoView({ behavior: 'smooth' });
 				}
 			} else {
-				console.log('error');
+				// console.log('error');
 			}
 		}
 	};

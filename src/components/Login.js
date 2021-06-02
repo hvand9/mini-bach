@@ -31,7 +31,6 @@ const Login = () => {
 			try {
 				const res = await projectAuth.signInWithEmailAndPassword(email, password);
 				setError(null);
-				// console.log(res);
 
 				setCurrUser({
 					id: res.user.uid,
@@ -40,13 +39,11 @@ const Login = () => {
 					email: res.user.email
 				});
 				localStorage.setItem('id', res.user.uid);
-				console.log(res);
-				// console.log('sucess');
+
 				history.push('/welcome');
 				return res;
 			} catch (err) {
-				// console.log('fail');
-				console.log(err);
+				// console.log(err);
 				setError('User not found. Please signup or recover password');
 			}
 		}

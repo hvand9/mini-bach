@@ -29,12 +29,12 @@ const useFetchChat = (collection, id, subCollection, idTable, chatCollection) =>
 					},
 					(err) => {
 						if (err.name === 'AbortError') {
-							console.log('fetch aborted');
+							// console.log('fetch aborted');
 						} else {
 							setDataChat(null);
 							setErrorChat(err.message);
 							setIsPendingChat(false);
-							console.log(err.message);
+							// console.log(err.message);
 						}
 					}
 				);

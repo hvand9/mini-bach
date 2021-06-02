@@ -216,12 +216,12 @@ const CreateCafe = (props) => {
 				if (!isPending && error === null) {
 					handleClose();
 				} else {
-					console.log(error);
+					// console.log(error);
 				}
 			} catch (err) {
 				setAddError('could not add doc in collection');
 				setAddPending(false);
-				console.log(err.message);
+				// console.log(err.message);
 			}
 		}
 	};
